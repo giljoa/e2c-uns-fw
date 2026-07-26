@@ -1,7 +1,8 @@
 ###################################################################################
 # Diagnosis.py, EDGE TO CLOUD FAULT DIAGNOSIS - Diagnosis
-# Runs ML transfer model to diagnose vibration signals from the broker
-# and publishes back the results
+# Runs ML transfer model to diagnose vibration signals from the broker and
+# publishes back the results. Also applies a threshold check to temperature
+# batches and publishes an over-temperature alarm.
 ###################################################################################
 import paho.mqtt.client as mqtt
 import pandas as pd
@@ -80,8 +81,16 @@ DEVICE_FILTER = 0
 BASE = "Enterprise/Site/Area"
 if DEVICE_FILTER:
     MQTT_TOPIC_RAW = f"{BASE}/{DEVICE_FILTER}/Analysis/Vibration/raw_vector"
+    MQTT_TOPIC_TEMP = f"{BASE}/{DEVICE_FILTER}/Edge/MotorModel/temperature"
 else:
     MQTT_TOPIC_RAW = f"{BASE}/+/Analysis/Vibration/raw_vector"
+    MQTT_TOPIC_TEMP = f"{BASE}/+/Edge/MotorModel/temperature"
+
+TOPIC_RE_VIBRATION = re.compile(rf"^{BASE}/([^/]+)/Analysis/Vibration/raw_vector$")
+TOPIC_RE_TEMPERATURE = re.compile(rf"^{BASE}/([^/]+)/Edge/MotorModel/temperature$")
+
+# Bearing temperature above this is treated as an over-temperature fault (tunable)
+TEMP_THRESHOLD_C = float(os.getenv("TEMP_THRESHOLD_C", "30.0"))
 
 # --------------- MQTT Client ---------------
 client = mqtt.Client(client_id=f"vibration_diagnosis_{DEVICE_FILTER or 'all'}", clean_session=True)
@@ -133,15 +142,45 @@ def extract_fft_online(data_win, used_ch, hilb_ch):
     spec = np.abs(fft(seg_proc, axis=0))[: seg_proc.shape[0] // 2, :]  # [bins, C_used]
     return spec.astype(np.float32)
 
-def on_message(client, userdata, message):
-    try:
-        # Parse device id from topic
-        topic = message.topic
-        m = re.match(rf"^{BASE}/([^/]+)/Analysis/Vibration/raw_vector$", topic)
-        device_id = m.group(1) if m else "unknown"
+def on_temperature_message(device_id, payload):
+    """Threshold check on a temperature storage batch; publishes an alarm status."""
+    batch_id = payload.get("batch_id", "Unknown")
 
-        # Decode payload
-        payload = json.loads(message.payload.decode("utf-8"))
+    ts_edge_ns = int(payload["timestamp"])
+    ts_cloud_ns = time.time_ns()
+    raw_latency_ms = (ts_cloud_ns - ts_edge_ns) / 1e6
+
+    sensor_data = payload.get("sensor_data", [])
+    if not sensor_data:
+        print(f"[{device_id}] Empty temperature batch {batch_id}. Skip.")
+        return
+
+    readings = [v for row in sensor_data for k, v in row.items() if k != "timestamp"]
+    max_temperature_c = max(readings)
+    alarm = max_temperature_c > TEMP_THRESHOLD_C
+
+    alarm_dict = {
+        "device": device_id,
+        "batch_id": batch_id,
+        "timestamp": int(time.time_ns()),
+        "max_temperature_c": max_temperature_c,
+        "threshold_c": TEMP_THRESHOLD_C,
+        "alarm": int(alarm),
+        "edge_to_cloud_latency_ms": raw_latency_ms,
+    }
+    size_mb = len(json.dumps(alarm_dict).encode("utf-8")) / (1024 * 1024)
+    alarm_dict["payload_size_mb"] = size_mb
+
+    MQTT_TOPIC_TEMP_ALARM_DEV = f"{BASE}/{device_id}/Analysis/Diagnosis/temperature"
+    client.publish(MQTT_TOPIC_TEMP_ALARM_DEV, json.dumps(alarm_dict))
+
+    status = "ALARM" if alarm else "OK"
+    print(f"[{device_id}] Temperature {status} batch {batch_id} max={max_temperature_c:.2f}C "
+          f"threshold={TEMP_THRESHOLD_C}C -> published to {MQTT_TOPIC_TEMP_ALARM_DEV}")
+
+
+def on_vibration_message(device_id, payload):
+    try:
         batch = np.array(payload["data"])
         batch_id = payload.get("batch_id", "Unknown")
         timestamp = payload.get("timestamp", "Unknown")
@@ -243,12 +282,33 @@ def on_message(client, userdata, message):
     except Exception as e:
         print(f"Error processing batch: {e}")
 
+
+def on_message(client, userdata, message):
+    topic = message.topic
+    try:
+        payload = json.loads(message.payload.decode("utf-8"))
+
+        m_vib = TOPIC_RE_VIBRATION.match(topic)
+        if m_vib:
+            on_vibration_message(m_vib.group(1), payload)
+            return
+
+        m_temp = TOPIC_RE_TEMPERATURE.match(topic)
+        if m_temp:
+            on_temperature_message(m_temp.group(1), payload)
+            return
+
+        print(f"Unhandled topic: {topic}")
+    except Exception as e:
+        print(f"Error processing message on {topic}: {e}")
+
 # --------------- Run ---------------
 client.on_message = on_message
 client.connect(MQTT_BROKER, MQTT_PORT, 60)
 client.subscribe(MQTT_TOPIC_RAW)
+client.subscribe(MQTT_TOPIC_TEMP)
 
-print(f"📡 Listening on '{MQTT_TOPIC_RAW}'...")
+print(f"📡 Listening on '{MQTT_TOPIC_RAW}' and '{MQTT_TOPIC_TEMP}'...")
 client.loop_start()
 
 try:

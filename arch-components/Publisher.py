@@ -1,7 +1,7 @@
 ###################################################################################
 # Publisher.py, EDGE TO CLOUD FAULT DIAGNOSIS - PUBLISHER
 # Randomly publishes CSV batches from a chosen dataset folder:
-#   ./data/publish-data/KAIST  or  ./data/publish-data/CWRU
+#   ./data/publish-data/kaist  or  ./data/publish-data/cwru  or  ./data/publish-data/kaist_temperature
 ###################################################################################
 
 import pandas as pd
@@ -23,13 +23,18 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--device", default=os.getenv("DEVICE_ID", "Motor1"))
 parser.add_argument(
     "--dataset",
-    choices=["kaist", "cwru"],
+    choices=["kaist", "cwru", "kaist_temperature"],
     default=os.getenv("DATASET", "kaist"),
     help="Choose which dataset folder to stream from"
 )
 args = parser.parse_args()
 DEVICE_ID = args.device
 DATASET = args.dataset
+
+# Vibration datasets stream both a full-rate compute topic and a downsampled
+# storage topic. Temperature only needs a single (downsampled) topic, since
+# the diagnosis alarm is a simple threshold check, not FFT-based inference.
+SIGNAL = "temperature" if DATASET == "kaist_temperature" else "vibration"
 print("Simulating device:", DEVICE_ID, " dataset:", DATASET)
 
 # ------------------------ MQTT configuration ------------------------
@@ -52,9 +57,9 @@ else:
     MQTT_USERNAME = "publisher"
     MQTT_PASSWORD = "joacoL21"
 
-MQTT_TOPIC_STORAGE = F"Enterprise/Site/Area/{DEVICE_ID}/Edge/MotorModel/vibration"
+MQTT_TOPIC_STORAGE = F"Enterprise/Site/Area/{DEVICE_ID}/Edge/MotorModel/{SIGNAL}"
 MQTT_TOPIC_COMPUTE = F"Enterprise/Site/Area/{DEVICE_ID}/Analysis/Vibration/raw_vector"
-MQTT_TOPIC_METRICS = F"Enterprise/Site/Area/{DEVICE_ID}/Metrics/vibration_publisher"
+MQTT_TOPIC_METRICS = F"Enterprise/Site/Area/{DEVICE_ID}/Metrics/{SIGNAL}_publisher"
 
 client = mqtt.Client(client_id=F"vibration_data_publisher_{DEVICE_ID}", clean_session=True)
 if var == 1:
@@ -210,9 +215,14 @@ while True:
             print(f"KAIST csv must have 4 columns. Found {n_cols}. Skip.")
             time.sleep(1.0)
             continue
-    else:
+    elif DATASET == "cwru":
         if n_cols not in (2, 3):
             print(f"CWRU csv must have 2 or 3 columns. Found {n_cols}. Skip.")
+            time.sleep(1.0)
+            continue
+    else:  # kaist_temperature
+        if n_cols != 2:
+            print(f"KAIST temperature csv must have 2 columns. Found {n_cols}. Skip.")
             time.sleep(1.0)
             continue
 
@@ -225,17 +235,19 @@ while True:
     total_compute = arr.shape[0]
     total_store = arr_store.shape[0]
 
-    n_batches_compute = int(math.ceil(float(total_compute) / float(batch_size_compute)))
+    # Temperature has no compute (FFT) topic, only the storage/threshold stream
+    n_batches_compute = int(math.ceil(float(total_compute) / float(batch_size_compute))) if SIGNAL == "vibration" else 0
     n_batches_store  = int(math.ceil(float(total_store) / float(batch_size_storage)))
     n_batches = max(n_batches_compute, n_batches_store)
 
     for batch_id in range(n_batches):
-        # Compute slice
-        start_c = batch_id * batch_size_compute
-        end_c   = min(start_c + batch_size_compute, total_compute)
-        if start_c < end_c:
-            batch_compute = arr[start_c:end_c, :]
-            publish_compute_batch(batch_compute, f"{class_label}:{batch_id}")
+        # Compute slice (vibration only)
+        if SIGNAL == "vibration":
+            start_c = batch_id * batch_size_compute
+            end_c   = min(start_c + batch_size_compute, total_compute)
+            if start_c < end_c:
+                batch_compute = arr[start_c:end_c, :]
+                publish_compute_batch(batch_compute, f"{class_label}:{batch_id}")
 
         # Storage slice
         start_s = batch_id * batch_size_storage
