@@ -148,7 +148,7 @@ def publish_compute_batch(batch, batch_id):
 
     # size of payload
     size_mb = len(js.encode("utf-8")) / (1024 * 1024)
-    payload_mb = {"batch_id": batch_id,  "timestamp": ts_edge_ns, "payload_size_mb": size_mb,  "units": "MB"}
+    payload_mb = {"batch_id": batch_id,  "timestamp": ts_edge_ns, "payload_size_mb": round(size_mb, 6),  "units": "MB"}
     client.publish(MQTT_TOPIC_METRICS + "/compute", json.dumps(payload_mb), qos=0)
 
     result = client.publish(MQTT_TOPIC_COMPUTE, js, qos=0)
@@ -177,7 +177,7 @@ def publish_storage_batch(batch, batch_id, start_timestamp_ns):
     js = json.dumps(payload)
     # size of payload
     size_mb = len(js.encode("utf-8")) / (1024 * 1024)
-    payload_mb = {"batch_id": batch_id,  "timestamp": start_timestamp_ns, "payload_size_mb": size_mb,  "units": "MB"}
+    payload_mb = {"batch_id": batch_id,  "timestamp": start_timestamp_ns, "payload_size_mb": round(size_mb, 6),  "units": "MB"}
     client.publish(MQTT_TOPIC_METRICS + "/storage", json.dumps(payload_mb), qos=0)
 
     result = client.publish(MQTT_TOPIC_STORAGE, js, qos=0)

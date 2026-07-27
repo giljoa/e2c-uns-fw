@@ -163,13 +163,13 @@ def on_temperature_message(device_id, payload):
         "device": device_id,
         "batch_id": batch_id,
         "timestamp": int(time.time_ns()),
-        "max_temperature_c": max_temperature_c,
+        "max_temperature_c": round(max_temperature_c, 2),
         "threshold_c": TEMP_THRESHOLD_C,
         "alarm": int(alarm),
-        "edge_to_cloud_latency_ms": raw_latency_ms,
+        "edge_to_cloud_latency_ms": round(raw_latency_ms, 3),
     }
     size_mb = len(json.dumps(alarm_dict).encode("utf-8")) / (1024 * 1024)
-    alarm_dict["payload_size_mb"] = size_mb
+    alarm_dict["payload_size_mb"] = round(size_mb, 6)
 
     MQTT_TOPIC_TEMP_ALARM_DEV = f"{BASE}/{device_id}/Analysis/Diagnosis/temperature"
     client.publish(MQTT_TOPIC_TEMP_ALARM_DEV, json.dumps(alarm_dict))
@@ -263,11 +263,11 @@ def on_vibration_message(device_id, payload):
             "timestamp": int(time.time() * 1e9),
             "device": device_id,
             "batch_id": batch_id,
-            "edge_to_cloud_latency_ms": raw_latency_ms
+            "edge_to_cloud_latency_ms": round(raw_latency_ms, 3)
         }
 
         size_mb = len(json.dumps(prediction_dict).encode("utf-8")) / (1024 * 1024)
-        prediction_dict["payload_size_mb"] = size_mb
+        prediction_dict["payload_size_mb"] = round(size_mb, 6)
         MQTT_TOPIC_METRICS = f"{BASE}/{device_id}/Metrics/cloud_diagnosis"
         client.publish(MQTT_TOPIC_METRICS, "%.2f" % size_mb)
 
