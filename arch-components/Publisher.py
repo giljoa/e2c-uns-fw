@@ -92,7 +92,8 @@ batch_size_compute = int(fs * publish_period)
 batch_size_storage = int(fs_store * publish_period)
 
 # ------------------------ Resolve dataset folder and files ------------------------
-DATA_DIR = os.path.join(".", "data", "publish-data", DATASET)
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(REPO_ROOT, "data", "publish-data", DATASET)
 if not os.path.isdir(DATA_DIR):
     raise RuntimeError(F"Dataset folder not found: {DATA_DIR}")
 

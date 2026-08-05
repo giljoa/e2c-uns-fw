@@ -74,16 +74,16 @@ The CNN model is trained to classify faults across both datasets using **transfe
    cd <your-repo>
    ```
 2. Install dependencies
-   ``bash
+   ```bash
    pip install -r requirements.txt
    ```
 3. Run the publisher simulation:
-   ``bash
-   python Publisher.py --device Motor1
+   ```bash
+   python arch-components/Publisher.py --device Motor1
    ```
 4. Start the diagnosis service:
-   ``bash
-   python Diagnosis.py --device Motor1
+   ```bash
+   python arch-components/Diagnosis.py --device Motor1
    ```
 
 ## Results
