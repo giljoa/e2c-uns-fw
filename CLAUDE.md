@@ -14,7 +14,7 @@ This is a research/thesis codebase (companion to a submitted IEEE Latam Transact
 pip install -r requirements.txt
 
 # Edge publisher — simulates a device streaming a dataset's CSVs over MQTT
-python arch-components/Publisher.py --device Motor1 --dataset kaist   # or --dataset cwru
+python arch-components/Publisher.py --device Motor1 --dataset kaist   # or --dataset cwru, --dataset kaist_temperature
 
 # Cloud diagnosis service — subscribes to raw vectors, runs CNN inference, publishes predictions
 python arch-components/Diagnosis.py
@@ -26,6 +26,15 @@ docker-compose up -d
 `Diagnosis.py` loads its Keras model from a hard-coded Google Drive path (`/content/drive/MyDrive/FlexUNS/...`), i.e. it's written to run inside Google Colab, not locally — update `model = keras.models.load_model(...)` to a local path before running it outside Colab.
 
 There are no automated tests, lint rules, or CI in this repo currently.
+
+### Getting a Publisher running on a fresh device (no cloud, no build step)
+
+1. `pip install -r requirements.txt`.
+2. Check `data/publish-data/<dataset>/` exists and has CSVs before doing anything else — this whole tree is gitignored (`data/`), so it does **not** come from `git clone`. If it's missing, **stop and tell the user**, don't try to self-serve it: running `ml/data-prep/data.ipynb` / `tdms_to_csv.py` isn't a working fallback either, since those read from `data/raw_<dataset>/`, which is *also* gitignored raw vendor data (`.mat`/`.tdms` files) that won't be present on a fresh device. The only real fix is the user copying `data/publish-data/` over from another device/drive (a `data/publish-data.zip` is the usual carrier). Column counts are validated per dataset in `Publisher.py`: `kaist` = 4 cols, `cwru` = 2–3 cols, `kaist_temperature` = 2 cols.
+3. Run `python arch-components/Publisher.py --device <id> --dataset {kaist,cwru,kaist_temperature}`. No broker setup is needed — MQTT credentials are hard-coded in the script (`var = 1`, a shared personal HiveMQ Cloud instance) and shared across every device that clones the repo. `--device` defaults to `Motor1` (or `$DEVICE_ID`) if omitted.
+4. You should see `Connected to MQTT` followed by `---Published batch N---` lines. No Diagnosis.py or TIG stack needed just to publish — those only matter if you want inference/storage on the receiving end.
+
+If `python arch-components/Publisher.py` fails immediately with `ModuleNotFoundError`, re-run `pip install -r requirements.txt` — it was missing `ntplib` (needed for the NTP-based latency timestamping) until this was added; make sure your local environment isn't using a stale cached copy.
 
 ## Architecture
 

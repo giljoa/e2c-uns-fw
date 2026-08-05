@@ -1,6 +1,7 @@
 # Core runtime
 paho-mqtt>=2.0.0,<3
 pandas>=2.2.0,<3
+ntplib>=0.4,<1
 
 # pandas will pull a compatible numpy automatically, but you can pin it if needed:
 # numpy>=1.26,<3
