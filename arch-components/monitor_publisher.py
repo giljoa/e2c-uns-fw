@@ -13,6 +13,7 @@ import psutil
 
 
 def find_publisher_proc():
+    candidates = []
     for p in psutil.process_iter(["pid", "name", "cmdline"]):
         cmdline = p.info.get("cmdline") or []
         if not cmdline:
@@ -26,8 +27,16 @@ def find_publisher_proc():
         if "python" not in exe and "python" not in name:
             continue
         if any("Publisher.py" in part for part in cmdline):
-            return psutil.Process(p.info["pid"])
-    return None
+            candidates.append(psutil.Process(p.info["pid"]))
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return candidates[0]
+    # More than one match also happens on Windows, where a venv's python.exe can be
+    # a launcher that re-execs the real interpreter as a child - both match on
+    # cmdline text but only the child actually imports pandas/numpy and does work.
+    # The idle launcher sits near-zero RSS, so the busy one is the max by memory.
+    return max(candidates, key=lambda proc: proc.memory_info().rss)
 
 
 def main():
