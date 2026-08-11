@@ -9,6 +9,12 @@ __pycache__/
 # Data
 data/
 
+# SSH private keys (never commit)
+docs/keypair
+*.pem
+id_rsa*
+id_ed25519*
+
 # Models
 ml/models_kaist0/
 ml/models/
