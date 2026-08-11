@@ -13,8 +13,18 @@ import psutil
 
 
 def find_publisher_proc():
-    for p in psutil.process_iter(["pid", "cmdline"]):
+    for p in psutil.process_iter(["pid", "name", "cmdline"]):
         cmdline = p.info.get("cmdline") or []
+        if not cmdline:
+            continue
+        # Require the executable itself to be python, not just any process whose
+        # command line happens to mention "Publisher.py" - e.g. a `bash -c "...
+        # python Publisher.py ... | tee log"` wrapper shell also matches on text
+        # alone, and is a different (idle) process from the real one doing work.
+        exe = cmdline[0].lower()
+        name = (p.info.get("name") or "").lower()
+        if "python" not in exe and "python" not in name:
+            continue
         if any("Publisher.py" in part for part in cmdline):
             return psutil.Process(p.info["pid"])
     return None
