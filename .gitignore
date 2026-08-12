@@ -9,8 +9,8 @@ __pycache__/
 # Data
 data/
 
-# SSH private keys (never commit)
-docs/keypair
+# Internal working docs (SSH keys, planning notes, paper drafts - never commit)
+docs/
 *.pem
 id_rsa*
 id_ed25519*
