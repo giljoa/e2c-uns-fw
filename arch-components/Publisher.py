@@ -1,7 +1,9 @@
 ###################################################################################
 # Publisher.py, EDGE TO CLOUD FAULT DIAGNOSIS - PUBLISHER
-# Randomly publishes CSV batches from a chosen dataset folder:
-#   ./data/publish-data/KAIST  or  ./data/publish-data/CWRU
+# Publishes CSV batches from a chosen dataset folder:
+#   ./data/publish-data/kaist  or  ./data/publish-data/cwru  or  ./data/publish-data/kaist_temperature
+# Picks a random file each loop unless --file pins one. The compute topic is
+# sent as compact binary by default (--encoding json for the legacy format).
 ###################################################################################
 
 import pandas as pd
@@ -12,6 +14,7 @@ import json
 import os
 import argparse
 import random
+import struct
 import paho.mqtt.client as mqtt
 import ntplib
 
@@ -23,13 +26,30 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--device", default=os.getenv("DEVICE_ID", "Motor1"))
 parser.add_argument(
     "--dataset",
-    choices=["kaist", "cwru"],
+    choices=["kaist", "cwru", "kaist_temperature"],
     default=os.getenv("DATASET", "kaist"),
     help="Choose which dataset folder to stream from"
+)
+parser.add_argument(
+    "--file",
+    default=os.getenv("PUBLISH_FILE"),
+    help="Pin a specific class-label file (by stem, e.g. '0Nm_BPFI_03') instead of picking one at random each loop"
+)
+parser.add_argument(
+    "--encoding",
+    choices=["binary", "json"],
+    default=os.getenv("ENCODING", "binary"),
+    help="Wire format for the compute topic: compact binary (default) or legacy JSON, kept for bandwidth comparison runs"
 )
 args = parser.parse_args()
 DEVICE_ID = args.device
 DATASET = args.dataset
+ENCODING = args.encoding
+
+# Vibration datasets stream both a full-rate compute topic and a downsampled
+# storage topic. Temperature only needs a single (downsampled) topic, since
+# the diagnosis alarm is a simple threshold check, not FFT-based inference.
+SIGNAL = "temperature" if DATASET == "kaist_temperature" else "vibration"
 print("Simulating device:", DEVICE_ID, " dataset:", DATASET)
 
 # ------------------------ MQTT configuration ------------------------
@@ -42,7 +62,9 @@ if var == 0:
     MQTT_PASSWORD = None
 elif var == 1:
     #MQTT_BROKER = "d6343f2567d641e4a0e22d56e9492a04.s1.eu.hivemq.cloud"
-    MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    MQTT_BROKER = "76d8c83b3d0948cbb05f291d212284c5.s1.eu.hivemq.cloud"
     MQTT_PORT = 8883
     MQTT_USERNAME = "publisher"
     MQTT_PASSWORD = "joacoL21"
@@ -52,9 +74,9 @@ else:
     MQTT_USERNAME = "publisher"
     MQTT_PASSWORD = "joacoL21"
 
-MQTT_TOPIC_STORAGE = F"Enterprise/Site/Area/{DEVICE_ID}/Edge/MotorModel/vibration"
+MQTT_TOPIC_STORAGE = F"Enterprise/Site/Area/{DEVICE_ID}/Edge/MotorModel/{SIGNAL}"
 MQTT_TOPIC_COMPUTE = F"Enterprise/Site/Area/{DEVICE_ID}/Analysis/Vibration/raw_vector"
-MQTT_TOPIC_METRICS = F"Enterprise/Site/Area/{DEVICE_ID}/Metrics/vibration_publisher"
+MQTT_TOPIC_METRICS = F"Enterprise/Site/Area/{DEVICE_ID}/Metrics/{SIGNAL}_publisher"
 
 client = mqtt.Client(client_id=F"vibration_data_publisher_{DEVICE_ID}", clean_session=True)
 if var == 1:
@@ -87,13 +109,21 @@ batch_size_compute = int(fs * publish_period)
 batch_size_storage = int(fs_store * publish_period)
 
 # ------------------------ Resolve dataset folder and files ------------------------
-DATA_DIR = os.path.join(".", "data", "publish-data", DATASET)
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(REPO_ROOT, "data", "publish-data", DATASET)
 if not os.path.isdir(DATA_DIR):
     raise RuntimeError(F"Dataset folder not found: {DATA_DIR}")
 
 csv_files = [os.path.join(DATA_DIR, f) for f in os.listdir(DATA_DIR) if f.lower().endswith(".csv")]
 if not csv_files:
     raise RuntimeError(F"No CSV files found in {DATA_DIR}")
+
+if args.file:
+    pinned_path = os.path.join(DATA_DIR, f"{args.file}.csv")
+    if pinned_path not in csv_files:
+        raise RuntimeError(F"--file {args.file!r} not found in {DATA_DIR}")
+    csv_files = [pinned_path]
+    print(f"Pinned to file: {args.file}.csv (no random selection)")
 
 # Per device RNG so multiple instances avoid lockstep
 rng = random.Random(str(DEVICE_ID) + str(time.time_ns()))
@@ -127,27 +157,40 @@ def now_ntp_ns():
     return time.time_ns() + _ntp_offset_ns
 
 # ------------------------ Helpers ------------------------
+# Binary framing for the compute topic: <int64 timestamp_ns><uint32 n_rows>
+# <uint32 n_cols><uint16 batch_id_len><batch_id utf-8><float32 array, row-major>.
+# ~5x smaller than the equivalent JSON (no per-value text formatting/punctuation).
+COMPUTE_HEADER_FMT = "<qIIH"
+
+def _encode_compute_payload(batch, batch_id, ts_edge_ns):
+    if ENCODING == "json":
+        return json.dumps({
+            "batch_id": batch_id,
+            "timestamp": ts_edge_ns,
+            "data": batch.tolist()
+        }).encode("utf-8")
+
+    arr = np.ascontiguousarray(batch, dtype=np.float32)
+    batch_id_bytes = batch_id.encode("utf-8")
+    header = struct.pack(COMPUTE_HEADER_FMT, ts_edge_ns, arr.shape[0], arr.shape[1], len(batch_id_bytes))
+    return header + batch_id_bytes + arr.tobytes()
+
 def publish_compute_batch(batch, batch_id):
     if not client.is_connected():
         print("MQTT not connected. Skip compute batch.")
         return
-    
+
     ts_edge_ns = now_ntp_ns()  # edge timestamp in nanoseconds
-    
-    payload = {
-        "batch_id": batch_id,
-        "timestamp": ts_edge_ns,
-        "data": batch.tolist()
-    }
-    js = json.dumps(payload)
+
+    payload_bytes = _encode_compute_payload(batch, batch_id, ts_edge_ns)
 
     # size of payload
-    size_mb = len(js.encode("utf-8")) / (1024 * 1024)
-    payload_mb = {"batch_id": batch_id,  "timestamp": ts_edge_ns, "payload_size_mb": size_mb,  "units": "MB"}
+    size_mb = len(payload_bytes) / (1024 * 1024)
+    payload_mb = {"batch_id": batch_id,  "timestamp": ts_edge_ns, "payload_size_mb": round(size_mb, 6),  "units": "MB"}
     client.publish(MQTT_TOPIC_METRICS + "/compute", json.dumps(payload_mb), qos=0)
 
-    result = client.publish(MQTT_TOPIC_COMPUTE, js, qos=0)
-    print("Compute batch {} rc={} size: {:.2f} MB".format(batch_id, result.rc, size_mb))
+    result = client.publish(MQTT_TOPIC_COMPUTE, payload_bytes, qos=0)
+    print("Compute batch {} rc={} size: {:.2f} MB [{}]".format(batch_id, result.rc, size_mb, ENCODING))
 
 def publish_storage_batch(batch, batch_id, start_timestamp_ns):
     if not client.is_connected():
@@ -172,7 +215,7 @@ def publish_storage_batch(batch, batch_id, start_timestamp_ns):
     js = json.dumps(payload)
     # size of payload
     size_mb = len(js.encode("utf-8")) / (1024 * 1024)
-    payload_mb = {"batch_id": batch_id,  "timestamp": start_timestamp_ns, "payload_size_mb": size_mb,  "units": "MB"}
+    payload_mb = {"batch_id": batch_id,  "timestamp": start_timestamp_ns, "payload_size_mb": round(size_mb, 6),  "units": "MB"}
     client.publish(MQTT_TOPIC_METRICS + "/storage", json.dumps(payload_mb), qos=0)
 
     result = client.publish(MQTT_TOPIC_STORAGE, js, qos=0)
@@ -210,9 +253,14 @@ while True:
             print(f"KAIST csv must have 4 columns. Found {n_cols}. Skip.")
             time.sleep(1.0)
             continue
-    else:
+    elif DATASET == "cwru":
         if n_cols not in (2, 3):
             print(f"CWRU csv must have 2 or 3 columns. Found {n_cols}. Skip.")
+            time.sleep(1.0)
+            continue
+    else:  # kaist_temperature
+        if n_cols != 2:
+            print(f"KAIST temperature csv must have 2 columns. Found {n_cols}. Skip.")
             time.sleep(1.0)
             continue
 
@@ -225,17 +273,19 @@ while True:
     total_compute = arr.shape[0]
     total_store = arr_store.shape[0]
 
-    n_batches_compute = int(math.ceil(float(total_compute) / float(batch_size_compute)))
+    # Temperature has no compute (FFT) topic, only the storage/threshold stream
+    n_batches_compute = int(math.ceil(float(total_compute) / float(batch_size_compute))) if SIGNAL == "vibration" else 0
     n_batches_store  = int(math.ceil(float(total_store) / float(batch_size_storage)))
     n_batches = max(n_batches_compute, n_batches_store)
 
     for batch_id in range(n_batches):
-        # Compute slice
-        start_c = batch_id * batch_size_compute
-        end_c   = min(start_c + batch_size_compute, total_compute)
-        if start_c < end_c:
-            batch_compute = arr[start_c:end_c, :]
-            publish_compute_batch(batch_compute, f"{class_label}:{batch_id}")
+        # Compute slice (vibration only)
+        if SIGNAL == "vibration":
+            start_c = batch_id * batch_size_compute
+            end_c   = min(start_c + batch_size_compute, total_compute)
+            if start_c < end_c:
+                batch_compute = arr[start_c:end_c, :]
+                publish_compute_batch(batch_compute, f"{class_label}:{batch_id}")
 
         # Storage slice
         start_s = batch_id * batch_size_storage

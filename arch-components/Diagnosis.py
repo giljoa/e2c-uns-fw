@@ -1,7 +1,11 @@
 ###################################################################################
 # Diagnosis.py, EDGE TO CLOUD FAULT DIAGNOSIS - Diagnosis
-# Runs ML transfer model to diagnose vibration signals from the broker
-# and publishes back the results
+# Runs ML transfer model to diagnose vibration signals from the broker and
+# publishes back the results. Also applies a threshold check to temperature
+# batches and publishes an over-temperature alarm.
+# The vibration compute topic auto-detects its wire format per message: the
+# default compact binary framing from Publisher.py, or legacy JSON (kept for
+# bandwidth comparison runs).
 ###################################################################################
 import paho.mqtt.client as mqtt
 import pandas as pd
@@ -11,6 +15,7 @@ import time
 import os
 import re
 import argparse
+import struct
 import ntplib
 
 from tensorflow import keras
@@ -64,7 +69,9 @@ if var == 0:
     MQTT_PASSWORD = None
 else:
     #MQTT_BROKER = "d6343f2567d641e4a0e22d56e9492a04.s1.eu.hivemq.cloud"
-    MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    MQTT_BROKER = "76d8c83b3d0948cbb05f291d212284c5.s1.eu.hivemq.cloud"
     MQTT_PORT = 8883
     MQTT_USERNAME = "diagnosis"
     MQTT_PASSWORD = "joacoL21"
@@ -80,8 +87,16 @@ DEVICE_FILTER = 0
 BASE = "Enterprise/Site/Area"
 if DEVICE_FILTER:
     MQTT_TOPIC_RAW = f"{BASE}/{DEVICE_FILTER}/Analysis/Vibration/raw_vector"
+    MQTT_TOPIC_TEMP = f"{BASE}/{DEVICE_FILTER}/Edge/MotorModel/temperature"
 else:
     MQTT_TOPIC_RAW = f"{BASE}/+/Analysis/Vibration/raw_vector"
+    MQTT_TOPIC_TEMP = f"{BASE}/+/Edge/MotorModel/temperature"
+
+TOPIC_RE_VIBRATION = re.compile(rf"^{BASE}/([^/]+)/Analysis/Vibration/raw_vector$")
+TOPIC_RE_TEMPERATURE = re.compile(rf"^{BASE}/([^/]+)/Edge/MotorModel/temperature$")
+
+# Bearing temperature above this is treated as an over-temperature fault (tunable)
+TEMP_THRESHOLD_C = float(os.getenv("TEMP_THRESHOLD_C", "30.0"))
 
 # --------------- MQTT Client ---------------
 client = mqtt.Client(client_id=f"vibration_diagnosis_{DEVICE_FILTER or 'all'}", clean_session=True)
@@ -133,20 +148,69 @@ def extract_fft_online(data_win, used_ch, hilb_ch):
     spec = np.abs(fft(seg_proc, axis=0))[: seg_proc.shape[0] // 2, :]  # [bins, C_used]
     return spec.astype(np.float32)
 
-def on_message(client, userdata, message):
+def on_temperature_message(device_id, payload):
+    """Threshold check on a temperature storage batch; publishes an alarm status."""
+    batch_id = payload.get("batch_id", "Unknown")
+
+    ts_edge_ns = int(payload["timestamp"])
+    ts_cloud_ns = time.time_ns()
+    raw_latency_ms = (ts_cloud_ns - ts_edge_ns) / 1e6
+
+    sensor_data = payload.get("sensor_data", [])
+    if not sensor_data:
+        print(f"[{device_id}] Empty temperature batch {batch_id}. Skip.")
+        return
+
+    readings = [v for row in sensor_data for k, v in row.items() if k != "timestamp"]
+    max_temperature_c = max(readings)
+    alarm = max_temperature_c > TEMP_THRESHOLD_C
+
+    alarm_dict = {
+        "device": device_id,
+        "batch_id": batch_id,
+        "timestamp": int(time.time_ns()),
+        "max_temperature_c": round(max_temperature_c, 2),
+        "threshold_c": TEMP_THRESHOLD_C,
+        "alarm": int(alarm),
+        "edge_to_cloud_latency_ms": round(raw_latency_ms, 3),
+    }
+    size_mb = len(json.dumps(alarm_dict).encode("utf-8")) / (1024 * 1024)
+    alarm_dict["payload_size_mb"] = round(size_mb, 6)
+
+    MQTT_TOPIC_TEMP_ALARM_DEV = f"{BASE}/{device_id}/Analysis/Diagnosis/temperature"
+    client.publish(MQTT_TOPIC_TEMP_ALARM_DEV, json.dumps(alarm_dict))
+
+    status = "ALARM" if alarm else "OK"
+    print(f"[{device_id}] Temperature {status} batch {batch_id} max={max_temperature_c:.2f}C "
+          f"threshold={TEMP_THRESHOLD_C}C -> published to {MQTT_TOPIC_TEMP_ALARM_DEV}")
+
+
+# Mirrors Publisher.py's COMPUTE_HEADER_FMT: <int64 timestamp_ns><uint32 n_rows>
+# <uint32 n_cols><uint16 batch_id_len><batch_id utf-8><float32 array, row-major>.
+COMPUTE_HEADER_FMT = "<qIIH"
+COMPUTE_HEADER_SIZE = struct.calcsize(COMPUTE_HEADER_FMT)
+
+def _decode_compute_payload(raw_payload):
+    """Returns (batch_id, timestamp_ns, batch_ndarray). Auto-detects the legacy
+    JSON encoding (starts with '{', kept for bandwidth comparison runs) vs. the
+    default compact binary framing."""
+    if raw_payload[:1] == b"{":
+        payload = json.loads(raw_payload.decode("utf-8"))
+        return payload.get("batch_id", "Unknown"), int(payload["timestamp"]), np.array(payload["data"])
+
+    ts_edge_ns, n_rows, n_cols, batch_id_len = struct.unpack_from(COMPUTE_HEADER_FMT, raw_payload, 0)
+    offset = COMPUTE_HEADER_SIZE
+    batch_id = raw_payload[offset:offset + batch_id_len].decode("utf-8")
+    offset += batch_id_len
+    batch = np.frombuffer(raw_payload, dtype=np.float32, offset=offset, count=n_rows * n_cols).reshape(n_rows, n_cols)
+    return batch_id, ts_edge_ns, batch
+
+
+def on_vibration_message(device_id, raw_payload):
     try:
-        # Parse device id from topic
-        topic = message.topic
-        m = re.match(rf"^{BASE}/([^/]+)/Analysis/Vibration/raw_vector$", topic)
-        device_id = m.group(1) if m else "unknown"
+        batch_id, ts_edge_ns, batch = _decode_compute_payload(raw_payload)
+        timestamp = ts_edge_ns
 
-        # Decode payload
-        payload = json.loads(message.payload.decode("utf-8"))
-        batch = np.array(payload["data"])
-        batch_id = payload.get("batch_id", "Unknown")
-        timestamp = payload.get("timestamp", "Unknown")
-
-        ts_edge_ns = int(payload["timestamp"])
         ts_cloud_ns = time.time_ns() # use now_ntp_ns() if you are not on cloud
 
         raw_latency_ms = (ts_cloud_ns - ts_edge_ns) / 1e6
@@ -196,7 +260,7 @@ def on_message(client, userdata, message):
         }
         tmp_str = json.dumps(fft_payload_dict)
         size_mb = len(tmp_str.encode("utf-8")) / (1024 * 1024)
-        fft_payload_dict["payload_size_mb"] = size_mb
+        fft_payload_dict["payload_size_mb"] = round(size_mb, 6)
         fft_payload = json.dumps(fft_payload_dict)
 
         MQTT_TOPIC_FFT_DEV = f"{BASE}/{device_id}/Analysis/Vibration/fft"
@@ -224,11 +288,11 @@ def on_message(client, userdata, message):
             "timestamp": int(time.time() * 1e9),
             "device": device_id,
             "batch_id": batch_id,
-            "edge_to_cloud_latency_ms": raw_latency_ms
+            "edge_to_cloud_latency_ms": round(raw_latency_ms, 3)
         }
 
         size_mb = len(json.dumps(prediction_dict).encode("utf-8")) / (1024 * 1024)
-        prediction_dict["payload_size_mb"] = size_mb
+        prediction_dict["payload_size_mb"] = round(size_mb, 6)
         MQTT_TOPIC_METRICS = f"{BASE}/{device_id}/Metrics/cloud_diagnosis"
         client.publish(MQTT_TOPIC_METRICS, "%.2f" % size_mb)
 
@@ -243,12 +307,34 @@ def on_message(client, userdata, message):
     except Exception as e:
         print(f"Error processing batch: {e}")
 
+
+def on_message(client, userdata, message):
+    topic = message.topic
+    try:
+        m_vib = TOPIC_RE_VIBRATION.match(topic)
+        if m_vib:
+            # Raw bytes: the compute topic may be binary or (legacy) JSON.
+            on_vibration_message(m_vib.group(1), message.payload)
+            return
+
+        payload = json.loads(message.payload.decode("utf-8"))
+
+        m_temp = TOPIC_RE_TEMPERATURE.match(topic)
+        if m_temp:
+            on_temperature_message(m_temp.group(1), payload)
+            return
+
+        print(f"Unhandled topic: {topic}")
+    except Exception as e:
+        print(f"Error processing message on {topic}: {e}")
+
 # --------------- Run ---------------
 client.on_message = on_message
 client.connect(MQTT_BROKER, MQTT_PORT, 60)
 client.subscribe(MQTT_TOPIC_RAW)
+client.subscribe(MQTT_TOPIC_TEMP)
 
-print(f"📡 Listening on '{MQTT_TOPIC_RAW}'...")
+print(f"📡 Listening on '{MQTT_TOPIC_RAW}' and '{MQTT_TOPIC_TEMP}'...")
 client.loop_start()
 
 try:
