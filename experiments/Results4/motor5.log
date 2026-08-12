@@ -1,0 +1,733 @@
+Simulating device: Motor5  dataset: kaist
+/home/dautom/Desktop/e2c-uns-fw/arch-components/Publisher.py:81: DeprecationWarning: Callback API version 1 is deprecated, update to latest version
+  client = mqtt.Client(client_id=F"vibration_data_publisher_{DEVICE_ID}", clean_session=True)
+Pinned to file: 0Nm_BPFI_03.csv (no random selection)
+Starting simulation in folder: /home/dautom/Desktop/e2c-uns-fw/data/publish-data/kaist
+Connected to MQTT
+Chosen file: 0Nm_BPFI_03.csv
+NTP sync ok offset_ns=-32749022
+Compute batch 0Nm_BPFI_03:0 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:0 rc=0 size: 0.16 MB
+---Published batch 0 at 02:52:07---
+Compute batch 0Nm_BPFI_03:1 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:1 rc=0 size: 0.16 MB
+---Published batch 1 at 02:52:08---
+Compute batch 0Nm_BPFI_03:2 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:2 rc=0 size: 0.16 MB
+---Published batch 2 at 02:52:09---
+Compute batch 0Nm_BPFI_03:3 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:3 rc=0 size: 0.16 MB
+---Published batch 3 at 02:52:10---
+Compute batch 0Nm_BPFI_03:4 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:4 rc=0 size: 0.16 MB
+---Published batch 4 at 02:52:11---
+Compute batch 0Nm_BPFI_03:5 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:5 rc=0 size: 0.16 MB
+---Published batch 5 at 02:52:12---
+Compute batch 0Nm_BPFI_03:6 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:6 rc=0 size: 0.16 MB
+---Published batch 6 at 02:52:13---
+Compute batch 0Nm_BPFI_03:7 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:7 rc=0 size: 0.16 MB
+---Published batch 7 at 02:52:14---
+Compute batch 0Nm_BPFI_03:8 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:8 rc=0 size: 0.16 MB
+---Published batch 8 at 02:52:15---
+Compute batch 0Nm_BPFI_03:9 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:9 rc=0 size: 0.16 MB
+---Published batch 9 at 02:52:16---
+Compute batch 0Nm_BPFI_03:10 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:10 rc=0 size: 0.16 MB
+---Published batch 10 at 02:52:17---
+Compute batch 0Nm_BPFI_03:11 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:11 rc=0 size: 0.16 MB
+---Published batch 11 at 02:52:19---
+Compute batch 0Nm_BPFI_03:12 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:12 rc=0 size: 0.16 MB
+---Published batch 12 at 02:52:20---
+Compute batch 0Nm_BPFI_03:13 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:13 rc=0 size: 0.16 MB
+---Published batch 13 at 02:52:21---
+Compute batch 0Nm_BPFI_03:14 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:14 rc=0 size: 0.16 MB
+---Published batch 14 at 02:52:22---
+Compute batch 0Nm_BPFI_03:15 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:15 rc=0 size: 0.16 MB
+---Published batch 15 at 02:52:23---
+Compute batch 0Nm_BPFI_03:16 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:16 rc=0 size: 0.16 MB
+---Published batch 16 at 02:52:24---
+Compute batch 0Nm_BPFI_03:17 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:17 rc=0 size: 0.16 MB
+---Published batch 17 at 02:52:25---
+Compute batch 0Nm_BPFI_03:18 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:18 rc=0 size: 0.16 MB
+---Published batch 18 at 02:52:26---
+Compute batch 0Nm_BPFI_03:19 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:19 rc=0 size: 0.16 MB
+---Published batch 19 at 02:52:27---
+Compute batch 0Nm_BPFI_03:20 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:20 rc=0 size: 0.16 MB
+---Published batch 20 at 02:52:28---
+Compute batch 0Nm_BPFI_03:21 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:21 rc=0 size: 0.16 MB
+---Published batch 21 at 02:52:29---
+Compute batch 0Nm_BPFI_03:22 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:22 rc=0 size: 0.16 MB
+---Published batch 22 at 02:52:30---
+Compute batch 0Nm_BPFI_03:23 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:23 rc=0 size: 0.16 MB
+---Published batch 23 at 02:52:31---
+Compute batch 0Nm_BPFI_03:24 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:24 rc=0 size: 0.16 MB
+---Published batch 24 at 02:52:32---
+Compute batch 0Nm_BPFI_03:25 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:25 rc=0 size: 0.16 MB
+---Published batch 25 at 02:52:33---
+Compute batch 0Nm_BPFI_03:26 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:26 rc=0 size: 0.16 MB
+---Published batch 26 at 02:52:34---
+Compute batch 0Nm_BPFI_03:27 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:27 rc=0 size: 0.16 MB
+---Published batch 27 at 02:52:35---
+Compute batch 0Nm_BPFI_03:28 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:28 rc=0 size: 0.16 MB
+---Published batch 28 at 02:52:36---
+Compute batch 0Nm_BPFI_03:29 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:29 rc=0 size: 0.16 MB
+---Published batch 29 at 02:52:37---
+Compute batch 0Nm_BPFI_03:30 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:30 rc=0 size: 0.16 MB
+---Published batch 30 at 02:52:38---
+Compute batch 0Nm_BPFI_03:31 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:31 rc=0 size: 0.16 MB
+---Published batch 31 at 02:52:39---
+Compute batch 0Nm_BPFI_03:32 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:32 rc=0 size: 0.16 MB
+---Published batch 32 at 02:52:40---
+Compute batch 0Nm_BPFI_03:33 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:33 rc=0 size: 0.16 MB
+---Published batch 33 at 02:52:41---
+Compute batch 0Nm_BPFI_03:34 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:34 rc=0 size: 0.16 MB
+---Published batch 34 at 02:52:42---
+Compute batch 0Nm_BPFI_03:35 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:35 rc=0 size: 0.16 MB
+---Published batch 35 at 02:52:43---
+Compute batch 0Nm_BPFI_03:36 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:36 rc=0 size: 0.16 MB
+---Published batch 36 at 02:52:44---
+Compute batch 0Nm_BPFI_03:37 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:37 rc=0 size: 0.16 MB
+---Published batch 37 at 02:52:45---
+Compute batch 0Nm_BPFI_03:38 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:38 rc=0 size: 0.16 MB
+---Published batch 38 at 02:52:46---
+Compute batch 0Nm_BPFI_03:39 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:39 rc=0 size: 0.16 MB
+---Published batch 39 at 02:52:47---
+Compute batch 0Nm_BPFI_03:40 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:40 rc=0 size: 0.16 MB
+---Published batch 40 at 02:52:48---
+Compute batch 0Nm_BPFI_03:41 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:41 rc=0 size: 0.16 MB
+---Published batch 41 at 02:52:49---
+Compute batch 0Nm_BPFI_03:42 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:42 rc=0 size: 0.16 MB
+---Published batch 42 at 02:52:50---
+Compute batch 0Nm_BPFI_03:43 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:43 rc=0 size: 0.16 MB
+---Published batch 43 at 02:52:51---
+Compute batch 0Nm_BPFI_03:44 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:44 rc=0 size: 0.16 MB
+---Published batch 44 at 02:52:52---
+Compute batch 0Nm_BPFI_03:45 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:45 rc=0 size: 0.16 MB
+---Published batch 45 at 02:52:53---
+Compute batch 0Nm_BPFI_03:46 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:46 rc=0 size: 0.16 MB
+---Published batch 46 at 02:52:54---
+Compute batch 0Nm_BPFI_03:47 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:47 rc=0 size: 0.16 MB
+---Published batch 47 at 02:52:55---
+Compute batch 0Nm_BPFI_03:48 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:48 rc=0 size: 0.16 MB
+---Published batch 48 at 02:52:56---
+Compute batch 0Nm_BPFI_03:49 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:49 rc=0 size: 0.16 MB
+---Published batch 49 at 02:52:57---
+Compute batch 0Nm_BPFI_03:50 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:50 rc=0 size: 0.16 MB
+---Published batch 50 at 02:52:58---
+Compute batch 0Nm_BPFI_03:51 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:51 rc=0 size: 0.16 MB
+---Published batch 51 at 02:52:59---
+Compute batch 0Nm_BPFI_03:52 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:52 rc=0 size: 0.16 MB
+---Published batch 52 at 02:53:00---
+Compute batch 0Nm_BPFI_03:53 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:53 rc=0 size: 0.16 MB
+---Published batch 53 at 02:53:02---
+Compute batch 0Nm_BPFI_03:54 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:54 rc=0 size: 0.16 MB
+---Published batch 54 at 02:53:03---
+Compute batch 0Nm_BPFI_03:55 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:55 rc=0 size: 0.16 MB
+---Published batch 55 at 02:53:04---
+Compute batch 0Nm_BPFI_03:56 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:56 rc=0 size: 0.16 MB
+---Published batch 56 at 02:53:05---
+Compute batch 0Nm_BPFI_03:57 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:57 rc=0 size: 0.16 MB
+---Published batch 57 at 02:53:06---
+Compute batch 0Nm_BPFI_03:58 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:58 rc=0 size: 0.16 MB
+---Published batch 58 at 02:53:07---
+NTP sync ok offset_ns=-33301330
+Compute batch 0Nm_BPFI_03:59 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:59 rc=0 size: 0.16 MB
+---Published batch 59 at 02:53:08---
+Compute batch 0Nm_BPFI_03:60 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:60 rc=0 size: 0.16 MB
+---Published batch 60 at 02:53:09---
+Compute batch 0Nm_BPFI_03:61 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:61 rc=0 size: 0.16 MB
+---Published batch 61 at 02:53:10---
+Compute batch 0Nm_BPFI_03:62 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:62 rc=0 size: 0.16 MB
+---Published batch 62 at 02:53:11---
+Compute batch 0Nm_BPFI_03:63 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:63 rc=0 size: 0.16 MB
+---Published batch 63 at 02:53:12---
+Compute batch 0Nm_BPFI_03:64 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:64 rc=0 size: 0.16 MB
+---Published batch 64 at 02:53:13---
+Compute batch 0Nm_BPFI_03:65 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:65 rc=0 size: 0.16 MB
+---Published batch 65 at 02:53:14---
+Compute batch 0Nm_BPFI_03:66 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:66 rc=0 size: 0.16 MB
+---Published batch 66 at 02:53:15---
+Compute batch 0Nm_BPFI_03:67 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:67 rc=0 size: 0.16 MB
+---Published batch 67 at 02:53:16---
+Compute batch 0Nm_BPFI_03:68 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:68 rc=0 size: 0.16 MB
+---Published batch 68 at 02:53:17---
+Compute batch 0Nm_BPFI_03:69 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:69 rc=0 size: 0.16 MB
+---Published batch 69 at 02:53:18---
+Compute batch 0Nm_BPFI_03:70 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:70 rc=0 size: 0.16 MB
+---Published batch 70 at 02:53:19---
+Compute batch 0Nm_BPFI_03:71 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:71 rc=0 size: 0.16 MB
+---Published batch 71 at 02:53:20---
+Compute batch 0Nm_BPFI_03:72 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:72 rc=0 size: 0.16 MB
+---Published batch 72 at 02:53:21---
+Compute batch 0Nm_BPFI_03:73 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:73 rc=0 size: 0.16 MB
+---Published batch 73 at 02:53:22---
+Compute batch 0Nm_BPFI_03:74 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:74 rc=0 size: 0.16 MB
+---Published batch 74 at 02:53:23---
+Compute batch 0Nm_BPFI_03:75 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:75 rc=0 size: 0.16 MB
+---Published batch 75 at 02:53:24---
+Compute batch 0Nm_BPFI_03:76 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:76 rc=0 size: 0.16 MB
+---Published batch 76 at 02:53:25---
+Compute batch 0Nm_BPFI_03:77 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:77 rc=0 size: 0.16 MB
+---Published batch 77 at 02:53:26---
+Compute batch 0Nm_BPFI_03:78 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:78 rc=0 size: 0.16 MB
+---Published batch 78 at 02:53:27---
+Compute batch 0Nm_BPFI_03:79 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:79 rc=0 size: 0.16 MB
+---Published batch 79 at 02:53:28---
+Compute batch 0Nm_BPFI_03:80 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:80 rc=0 size: 0.16 MB
+---Published batch 80 at 02:53:29---
+Compute batch 0Nm_BPFI_03:81 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:81 rc=0 size: 0.16 MB
+---Published batch 81 at 02:53:30---
+Compute batch 0Nm_BPFI_03:82 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:82 rc=0 size: 0.16 MB
+---Published batch 82 at 02:53:31---
+Compute batch 0Nm_BPFI_03:83 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:83 rc=0 size: 0.16 MB
+---Published batch 83 at 02:53:32---
+Compute batch 0Nm_BPFI_03:84 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:84 rc=0 size: 0.16 MB
+---Published batch 84 at 02:53:33---
+Compute batch 0Nm_BPFI_03:85 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:85 rc=0 size: 0.16 MB
+---Published batch 85 at 02:53:34---
+Compute batch 0Nm_BPFI_03:86 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:86 rc=0 size: 0.16 MB
+---Published batch 86 at 02:53:35---
+Compute batch 0Nm_BPFI_03:87 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:87 rc=0 size: 0.16 MB
+---Published batch 87 at 02:53:36---
+Compute batch 0Nm_BPFI_03:88 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:88 rc=0 size: 0.16 MB
+---Published batch 88 at 02:53:37---
+Compute batch 0Nm_BPFI_03:89 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:89 rc=0 size: 0.16 MB
+---Published batch 89 at 02:53:38---
+Compute batch 0Nm_BPFI_03:90 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:90 rc=0 size: 0.16 MB
+---Published batch 90 at 02:53:39---
+Compute batch 0Nm_BPFI_03:91 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:91 rc=0 size: 0.16 MB
+---Published batch 91 at 02:53:40---
+Compute batch 0Nm_BPFI_03:92 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:92 rc=0 size: 0.16 MB
+---Published batch 92 at 02:53:41---
+Compute batch 0Nm_BPFI_03:93 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:93 rc=0 size: 0.16 MB
+---Published batch 93 at 02:53:42---
+Compute batch 0Nm_BPFI_03:94 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:94 rc=0 size: 0.16 MB
+---Published batch 94 at 02:53:43---
+Compute batch 0Nm_BPFI_03:95 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:95 rc=0 size: 0.16 MB
+---Published batch 95 at 02:53:44---
+Compute batch 0Nm_BPFI_03:96 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:96 rc=0 size: 0.16 MB
+---Published batch 96 at 02:53:45---
+Compute batch 0Nm_BPFI_03:97 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:97 rc=0 size: 0.16 MB
+---Published batch 97 at 02:53:46---
+Compute batch 0Nm_BPFI_03:98 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:98 rc=0 size: 0.16 MB
+---Published batch 98 at 02:53:48---
+Compute batch 0Nm_BPFI_03:99 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:99 rc=0 size: 0.16 MB
+---Published batch 99 at 02:53:49---
+Compute batch 0Nm_BPFI_03:100 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:100 rc=0 size: 0.16 MB
+---Published batch 100 at 02:53:50---
+Compute batch 0Nm_BPFI_03:101 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:101 rc=0 size: 0.16 MB
+---Published batch 101 at 02:53:51---
+Compute batch 0Nm_BPFI_03:102 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:102 rc=0 size: 0.16 MB
+---Published batch 102 at 02:53:52---
+Compute batch 0Nm_BPFI_03:103 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:103 rc=0 size: 0.16 MB
+---Published batch 103 at 02:53:53---
+Compute batch 0Nm_BPFI_03:104 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:104 rc=0 size: 0.16 MB
+---Published batch 104 at 02:53:54---
+Compute batch 0Nm_BPFI_03:105 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:105 rc=0 size: 0.16 MB
+---Published batch 105 at 02:53:55---
+Compute batch 0Nm_BPFI_03:106 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:106 rc=0 size: 0.16 MB
+---Published batch 106 at 02:53:56---
+Compute batch 0Nm_BPFI_03:107 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:107 rc=0 size: 0.16 MB
+---Published batch 107 at 02:53:57---
+Compute batch 0Nm_BPFI_03:108 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:108 rc=0 size: 0.16 MB
+---Published batch 108 at 02:53:58---
+Compute batch 0Nm_BPFI_03:109 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:109 rc=0 size: 0.16 MB
+---Published batch 109 at 02:53:59---
+Compute batch 0Nm_BPFI_03:110 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:110 rc=0 size: 0.16 MB
+---Published batch 110 at 02:54:00---
+Compute batch 0Nm_BPFI_03:111 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:111 rc=0 size: 0.16 MB
+---Published batch 111 at 02:54:01---
+Compute batch 0Nm_BPFI_03:112 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:112 rc=0 size: 0.16 MB
+---Published batch 112 at 02:54:02---
+Compute batch 0Nm_BPFI_03:113 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:113 rc=0 size: 0.16 MB
+---Published batch 113 at 02:54:03---
+Compute batch 0Nm_BPFI_03:114 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:114 rc=0 size: 0.16 MB
+---Published batch 114 at 02:54:04---
+Compute batch 0Nm_BPFI_03:115 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:115 rc=0 size: 0.16 MB
+---Published batch 115 at 02:54:05---
+Compute batch 0Nm_BPFI_03:116 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:116 rc=0 size: 0.16 MB
+---Published batch 116 at 02:54:06---
+Compute batch 0Nm_BPFI_03:117 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:117 rc=0 size: 0.16 MB
+---Published batch 117 at 02:54:07---
+NTP sync ok offset_ns=-33823385
+Compute batch 0Nm_BPFI_03:118 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:118 rc=0 size: 0.16 MB
+---Published batch 118 at 02:54:08---
+Compute batch 0Nm_BPFI_03:119 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:119 rc=0 size: 0.16 MB
+---Published batch 119 at 02:54:09---
+Compute batch 0Nm_BPFI_03:120 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:120 rc=0 size: 0.16 MB
+---Published batch 120 at 02:54:10---
+Compute batch 0Nm_BPFI_03:121 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:121 rc=0 size: 0.16 MB
+---Published batch 121 at 02:54:11---
+Compute batch 0Nm_BPFI_03:122 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:122 rc=0 size: 0.16 MB
+---Published batch 122 at 02:54:12---
+Compute batch 0Nm_BPFI_03:123 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:123 rc=0 size: 0.16 MB
+---Published batch 123 at 02:54:13---
+Compute batch 0Nm_BPFI_03:124 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:124 rc=0 size: 0.16 MB
+---Published batch 124 at 02:54:14---
+Compute batch 0Nm_BPFI_03:125 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:125 rc=0 size: 0.16 MB
+---Published batch 125 at 02:54:15---
+Compute batch 0Nm_BPFI_03:126 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:126 rc=0 size: 0.16 MB
+---Published batch 126 at 02:54:16---
+Compute batch 0Nm_BPFI_03:127 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:127 rc=0 size: 0.16 MB
+---Published batch 127 at 02:54:17---
+Compute batch 0Nm_BPFI_03:128 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:128 rc=0 size: 0.16 MB
+---Published batch 128 at 02:54:18---
+Compute batch 0Nm_BPFI_03:129 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:129 rc=0 size: 0.16 MB
+---Published batch 129 at 02:54:19---
+Compute batch 0Nm_BPFI_03:130 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:130 rc=0 size: 0.16 MB
+---Published batch 130 at 02:54:20---
+Compute batch 0Nm_BPFI_03:131 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:131 rc=0 size: 0.16 MB
+---Published batch 131 at 02:54:21---
+Compute batch 0Nm_BPFI_03:132 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:132 rc=0 size: 0.16 MB
+---Published batch 132 at 02:54:22---
+Compute batch 0Nm_BPFI_03:133 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:133 rc=0 size: 0.16 MB
+---Published batch 133 at 02:54:23---
+Compute batch 0Nm_BPFI_03:134 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:134 rc=0 size: 0.16 MB
+---Published batch 134 at 02:54:24---
+Compute batch 0Nm_BPFI_03:135 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:135 rc=0 size: 0.16 MB
+---Published batch 135 at 02:54:25---
+Compute batch 0Nm_BPFI_03:136 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:136 rc=0 size: 0.16 MB
+---Published batch 136 at 02:54:26---
+Compute batch 0Nm_BPFI_03:137 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:137 rc=0 size: 0.16 MB
+---Published batch 137 at 02:54:27---
+Compute batch 0Nm_BPFI_03:138 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:138 rc=0 size: 0.16 MB
+---Published batch 138 at 02:54:28---
+Compute batch 0Nm_BPFI_03:139 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:139 rc=0 size: 0.16 MB
+---Published batch 139 at 02:54:29---
+Compute batch 0Nm_BPFI_03:140 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:140 rc=0 size: 0.16 MB
+---Published batch 140 at 02:54:30---
+Compute batch 0Nm_BPFI_03:141 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:141 rc=0 size: 0.16 MB
+---Published batch 141 at 02:54:31---
+Compute batch 0Nm_BPFI_03:142 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:142 rc=0 size: 0.16 MB
+---Published batch 142 at 02:54:32---
+Compute batch 0Nm_BPFI_03:143 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:143 rc=0 size: 0.16 MB
+---Published batch 143 at 02:54:34---
+Compute batch 0Nm_BPFI_03:144 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:144 rc=0 size: 0.16 MB
+---Published batch 144 at 02:54:35---
+Compute batch 0Nm_BPFI_03:145 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:145 rc=0 size: 0.16 MB
+---Published batch 145 at 02:54:36---
+Compute batch 0Nm_BPFI_03:146 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:146 rc=0 size: 0.16 MB
+---Published batch 146 at 02:54:37---
+Compute batch 0Nm_BPFI_03:147 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:147 rc=0 size: 0.16 MB
+---Published batch 147 at 02:54:38---
+Compute batch 0Nm_BPFI_03:148 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:148 rc=0 size: 0.16 MB
+---Published batch 148 at 02:54:39---
+Compute batch 0Nm_BPFI_03:149 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:149 rc=0 size: 0.16 MB
+---Published batch 149 at 02:54:40---
+Compute batch 0Nm_BPFI_03:150 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:150 rc=0 size: 0.16 MB
+---Published batch 150 at 02:54:41---
+Compute batch 0Nm_BPFI_03:151 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:151 rc=0 size: 0.16 MB
+---Published batch 151 at 02:54:42---
+Compute batch 0Nm_BPFI_03:152 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:152 rc=0 size: 0.16 MB
+---Published batch 152 at 02:54:43---
+Compute batch 0Nm_BPFI_03:153 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:153 rc=0 size: 0.16 MB
+---Published batch 153 at 02:54:44---
+Compute batch 0Nm_BPFI_03:154 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:154 rc=0 size: 0.16 MB
+---Published batch 154 at 02:54:45---
+Compute batch 0Nm_BPFI_03:155 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:155 rc=0 size: 0.16 MB
+---Published batch 155 at 02:54:46---
+Compute batch 0Nm_BPFI_03:156 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:156 rc=0 size: 0.16 MB
+---Published batch 156 at 02:54:47---
+Compute batch 0Nm_BPFI_03:157 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:157 rc=0 size: 0.16 MB
+---Published batch 157 at 02:54:48---
+Compute batch 0Nm_BPFI_03:158 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:158 rc=0 size: 0.16 MB
+---Published batch 158 at 02:54:49---
+Compute batch 0Nm_BPFI_03:159 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:159 rc=0 size: 0.16 MB
+---Published batch 159 at 02:54:50---
+Compute batch 0Nm_BPFI_03:160 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:160 rc=0 size: 0.16 MB
+---Published batch 160 at 02:54:51---
+Compute batch 0Nm_BPFI_03:161 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:161 rc=0 size: 0.16 MB
+---Published batch 161 at 02:54:52---
+Compute batch 0Nm_BPFI_03:162 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:162 rc=0 size: 0.16 MB
+---Published batch 162 at 02:54:53---
+Compute batch 0Nm_BPFI_03:163 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:163 rc=0 size: 0.16 MB
+---Published batch 163 at 02:54:54---
+Compute batch 0Nm_BPFI_03:164 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:164 rc=0 size: 0.16 MB
+---Published batch 164 at 02:54:55---
+Compute batch 0Nm_BPFI_03:165 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:165 rc=0 size: 0.16 MB
+---Published batch 165 at 02:54:56---
+Compute batch 0Nm_BPFI_03:166 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:166 rc=0 size: 0.16 MB
+---Published batch 166 at 02:54:57---
+Compute batch 0Nm_BPFI_03:167 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:167 rc=0 size: 0.16 MB
+---Published batch 167 at 02:54:58---
+Compute batch 0Nm_BPFI_03:168 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:168 rc=0 size: 0.16 MB
+---Published batch 168 at 02:54:59---
+Compute batch 0Nm_BPFI_03:169 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:169 rc=0 size: 0.16 MB
+---Published batch 169 at 02:55:00---
+Compute batch 0Nm_BPFI_03:170 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:170 rc=0 size: 0.16 MB
+---Published batch 170 at 02:55:01---
+Compute batch 0Nm_BPFI_03:171 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:171 rc=0 size: 0.16 MB
+---Published batch 171 at 02:55:02---
+Compute batch 0Nm_BPFI_03:172 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:172 rc=0 size: 0.16 MB
+---Published batch 172 at 02:55:03---
+Compute batch 0Nm_BPFI_03:173 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:173 rc=0 size: 0.16 MB
+---Published batch 173 at 02:55:04---
+Compute batch 0Nm_BPFI_03:174 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:174 rc=0 size: 0.16 MB
+---Published batch 174 at 02:55:05---
+Compute batch 0Nm_BPFI_03:175 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:175 rc=0 size: 0.16 MB
+---Published batch 175 at 02:55:06---
+Compute batch 0Nm_BPFI_03:176 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:176 rc=0 size: 0.16 MB
+---Published batch 176 at 02:55:07---
+NTP sync ok offset_ns=-70551036
+Compute batch 0Nm_BPFI_03:177 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:177 rc=0 size: 0.16 MB
+---Published batch 177 at 02:55:08---
+Compute batch 0Nm_BPFI_03:178 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:178 rc=0 size: 0.16 MB
+---Published batch 178 at 02:55:09---
+Compute batch 0Nm_BPFI_03:179 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:179 rc=0 size: 0.16 MB
+---Published batch 179 at 02:55:10---
+Chosen file: 0Nm_BPFI_03.csv
+Compute batch 0Nm_BPFI_03:0 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:0 rc=0 size: 0.16 MB
+---Published batch 0 at 02:55:15---
+Compute batch 0Nm_BPFI_03:1 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:1 rc=0 size: 0.16 MB
+---Published batch 1 at 02:55:16---
+Compute batch 0Nm_BPFI_03:2 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:2 rc=0 size: 0.16 MB
+---Published batch 2 at 02:55:17---
+Compute batch 0Nm_BPFI_03:3 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:3 rc=0 size: 0.16 MB
+---Published batch 3 at 02:55:18---
+Compute batch 0Nm_BPFI_03:4 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:4 rc=0 size: 0.16 MB
+---Published batch 4 at 02:55:19---
+Compute batch 0Nm_BPFI_03:5 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:5 rc=0 size: 0.16 MB
+---Published batch 5 at 02:55:20---
+Compute batch 0Nm_BPFI_03:6 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:6 rc=0 size: 0.16 MB
+---Published batch 6 at 02:55:21---
+Compute batch 0Nm_BPFI_03:7 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:7 rc=0 size: 0.16 MB
+---Published batch 7 at 02:55:22---
+Compute batch 0Nm_BPFI_03:8 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:8 rc=0 size: 0.16 MB
+---Published batch 8 at 02:55:23---
+Compute batch 0Nm_BPFI_03:9 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:9 rc=0 size: 0.16 MB
+---Published batch 9 at 02:55:24---
+Compute batch 0Nm_BPFI_03:10 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:10 rc=0 size: 0.16 MB
+---Published batch 10 at 02:55:25---
+Compute batch 0Nm_BPFI_03:11 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:11 rc=0 size: 0.16 MB
+---Published batch 11 at 02:55:26---
+Compute batch 0Nm_BPFI_03:12 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:12 rc=0 size: 0.16 MB
+---Published batch 12 at 02:55:27---
+Compute batch 0Nm_BPFI_03:13 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:13 rc=0 size: 0.16 MB
+---Published batch 13 at 02:55:28---
+Compute batch 0Nm_BPFI_03:14 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:14 rc=0 size: 0.16 MB
+---Published batch 14 at 02:55:29---
+Compute batch 0Nm_BPFI_03:15 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:15 rc=0 size: 0.16 MB
+---Published batch 15 at 02:55:30---
+Compute batch 0Nm_BPFI_03:16 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:16 rc=0 size: 0.16 MB
+---Published batch 16 at 02:55:31---
+Compute batch 0Nm_BPFI_03:17 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:17 rc=0 size: 0.16 MB
+---Published batch 17 at 02:55:32---
+Compute batch 0Nm_BPFI_03:18 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:18 rc=0 size: 0.16 MB
+---Published batch 18 at 02:55:33---
+Compute batch 0Nm_BPFI_03:19 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:19 rc=0 size: 0.16 MB
+---Published batch 19 at 02:55:34---
+Compute batch 0Nm_BPFI_03:20 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:20 rc=0 size: 0.16 MB
+---Published batch 20 at 02:55:35---
+Compute batch 0Nm_BPFI_03:21 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:21 rc=0 size: 0.16 MB
+---Published batch 21 at 02:55:36---
+Compute batch 0Nm_BPFI_03:22 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:22 rc=0 size: 0.16 MB
+---Published batch 22 at 02:55:37---
+Compute batch 0Nm_BPFI_03:23 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:23 rc=0 size: 0.16 MB
+---Published batch 23 at 02:55:38---
+Compute batch 0Nm_BPFI_03:24 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:24 rc=0 size: 0.16 MB
+---Published batch 24 at 02:55:39---
+Compute batch 0Nm_BPFI_03:25 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:25 rc=0 size: 0.16 MB
+---Published batch 25 at 02:55:40---
+Compute batch 0Nm_BPFI_03:26 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:26 rc=0 size: 0.16 MB
+---Published batch 26 at 02:55:41---
+Compute batch 0Nm_BPFI_03:27 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:27 rc=0 size: 0.16 MB
+---Published batch 27 at 02:55:42---
+Compute batch 0Nm_BPFI_03:28 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:28 rc=0 size: 0.16 MB
+---Published batch 28 at 02:55:43---
+Compute batch 0Nm_BPFI_03:29 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:29 rc=0 size: 0.16 MB
+---Published batch 29 at 02:55:44---
+Compute batch 0Nm_BPFI_03:30 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:30 rc=0 size: 0.16 MB
+---Published batch 30 at 02:55:45---
+Compute batch 0Nm_BPFI_03:31 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:31 rc=0 size: 0.16 MB
+---Published batch 31 at 02:55:46---
+Compute batch 0Nm_BPFI_03:32 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:32 rc=0 size: 0.16 MB
+---Published batch 32 at 02:55:48---
+Compute batch 0Nm_BPFI_03:33 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:33 rc=0 size: 0.16 MB
+---Published batch 33 at 02:55:49---
+Compute batch 0Nm_BPFI_03:34 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:34 rc=0 size: 0.16 MB
+---Published batch 34 at 02:55:50---
+Compute batch 0Nm_BPFI_03:35 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:35 rc=0 size: 0.16 MB
+---Published batch 35 at 02:55:51---
+Compute batch 0Nm_BPFI_03:36 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:36 rc=0 size: 0.16 MB
+---Published batch 36 at 02:55:52---
+Compute batch 0Nm_BPFI_03:37 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:37 rc=0 size: 0.16 MB
+---Published batch 37 at 02:55:53---
+Compute batch 0Nm_BPFI_03:38 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:38 rc=0 size: 0.16 MB
+---Published batch 38 at 02:55:54---
+Compute batch 0Nm_BPFI_03:39 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:39 rc=0 size: 0.16 MB
+---Published batch 39 at 02:55:55---
+Compute batch 0Nm_BPFI_03:40 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:40 rc=0 size: 0.16 MB
+---Published batch 40 at 02:55:56---
+Compute batch 0Nm_BPFI_03:41 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:41 rc=0 size: 0.16 MB
+---Published batch 41 at 02:55:57---
+Compute batch 0Nm_BPFI_03:42 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:42 rc=0 size: 0.16 MB
+---Published batch 42 at 02:55:58---
+Compute batch 0Nm_BPFI_03:43 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:43 rc=0 size: 0.16 MB
+---Published batch 43 at 02:55:59---
+Compute batch 0Nm_BPFI_03:44 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:44 rc=0 size: 0.16 MB
+---Published batch 44 at 02:56:00---
+Compute batch 0Nm_BPFI_03:45 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:45 rc=0 size: 0.16 MB
+---Published batch 45 at 02:56:01---
+Compute batch 0Nm_BPFI_03:46 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:46 rc=0 size: 0.16 MB
+---Published batch 46 at 02:56:02---
+Compute batch 0Nm_BPFI_03:47 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:47 rc=0 size: 0.16 MB
+---Published batch 47 at 02:56:03---
+Compute batch 0Nm_BPFI_03:48 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:48 rc=0 size: 0.16 MB
+---Published batch 48 at 02:56:04---
+Compute batch 0Nm_BPFI_03:49 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:49 rc=0 size: 0.16 MB
+---Published batch 49 at 02:56:05---
+Compute batch 0Nm_BPFI_03:50 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:50 rc=0 size: 0.16 MB
+---Published batch 50 at 02:56:06---
+Compute batch 0Nm_BPFI_03:51 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:51 rc=0 size: 0.16 MB
+---Published batch 51 at 02:56:07---
+Compute batch 0Nm_BPFI_03:52 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:52 rc=0 size: 0.16 MB
+---Published batch 52 at 02:56:08---
+NTP sync ok offset_ns=-72453770
+Compute batch 0Nm_BPFI_03:53 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:53 rc=0 size: 0.16 MB
+---Published batch 53 at 02:56:09---
+Compute batch 0Nm_BPFI_03:54 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:54 rc=0 size: 0.16 MB
+---Published batch 54 at 02:56:10---
+Compute batch 0Nm_BPFI_03:55 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:55 rc=0 size: 0.16 MB
+---Published batch 55 at 02:56:11---
+Compute batch 0Nm_BPFI_03:56 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:56 rc=0 size: 0.16 MB
+---Published batch 56 at 02:56:12---
+Compute batch 0Nm_BPFI_03:57 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:57 rc=0 size: 0.16 MB
+---Published batch 57 at 02:56:13---
+Compute batch 0Nm_BPFI_03:58 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:58 rc=0 size: 0.16 MB
+---Published batch 58 at 02:56:14---
+Compute batch 0Nm_BPFI_03:59 rc=0 size: 0.39 MB [binary]
+Storage batch 0Nm_BPFI_03:59 rc=0 size: 0.16 MB
+---Published batch 59 at 02:56:15---
