@@ -1,7 +1,9 @@
 ###################################################################################
 # Publisher.py, EDGE TO CLOUD FAULT DIAGNOSIS - PUBLISHER
-# Randomly publishes CSV batches from a chosen dataset folder:
+# Publishes CSV batches from a chosen dataset folder:
 #   ./data/publish-data/kaist  or  ./data/publish-data/cwru  or  ./data/publish-data/kaist_temperature
+# Picks a random file each loop unless --file pins one. The compute topic is
+# sent as compact binary by default (--encoding json for the legacy format).
 ###################################################################################
 
 import pandas as pd
@@ -12,6 +14,7 @@ import json
 import os
 import argparse
 import random
+import struct
 import paho.mqtt.client as mqtt
 import ntplib
 
@@ -27,9 +30,21 @@ parser.add_argument(
     default=os.getenv("DATASET", "kaist"),
     help="Choose which dataset folder to stream from"
 )
+parser.add_argument(
+    "--file",
+    default=os.getenv("PUBLISH_FILE"),
+    help="Pin a specific class-label file (by stem, e.g. '0Nm_BPFI_03') instead of picking one at random each loop"
+)
+parser.add_argument(
+    "--encoding",
+    choices=["binary", "json"],
+    default=os.getenv("ENCODING", "binary"),
+    help="Wire format for the compute topic: compact binary (default) or legacy JSON, kept for bandwidth comparison runs"
+)
 args = parser.parse_args()
 DEVICE_ID = args.device
 DATASET = args.dataset
+ENCODING = args.encoding
 
 # Vibration datasets stream both a full-rate compute topic and a downsampled
 # storage topic. Temperature only needs a single (downsampled) topic, since
@@ -48,7 +63,8 @@ if var == 0:
 elif var == 1:
     #MQTT_BROKER = "d6343f2567d641e4a0e22d56e9492a04.s1.eu.hivemq.cloud"
     #MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
-    MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    MQTT_BROKER = "76d8c83b3d0948cbb05f291d212284c5.s1.eu.hivemq.cloud"
     MQTT_PORT = 8883
     MQTT_USERNAME = "publisher"
     MQTT_PASSWORD = "joacoL21"
@@ -102,6 +118,13 @@ csv_files = [os.path.join(DATA_DIR, f) for f in os.listdir(DATA_DIR) if f.lower(
 if not csv_files:
     raise RuntimeError(F"No CSV files found in {DATA_DIR}")
 
+if args.file:
+    pinned_path = os.path.join(DATA_DIR, f"{args.file}.csv")
+    if pinned_path not in csv_files:
+        raise RuntimeError(F"--file {args.file!r} not found in {DATA_DIR}")
+    csv_files = [pinned_path]
+    print(f"Pinned to file: {args.file}.csv (no random selection)")
+
 # Per device RNG so multiple instances avoid lockstep
 rng = random.Random(str(DEVICE_ID) + str(time.time_ns()))
 
@@ -134,27 +157,40 @@ def now_ntp_ns():
     return time.time_ns() + _ntp_offset_ns
 
 # ------------------------ Helpers ------------------------
+# Binary framing for the compute topic: <int64 timestamp_ns><uint32 n_rows>
+# <uint32 n_cols><uint16 batch_id_len><batch_id utf-8><float32 array, row-major>.
+# ~5x smaller than the equivalent JSON (no per-value text formatting/punctuation).
+COMPUTE_HEADER_FMT = "<qIIH"
+
+def _encode_compute_payload(batch, batch_id, ts_edge_ns):
+    if ENCODING == "json":
+        return json.dumps({
+            "batch_id": batch_id,
+            "timestamp": ts_edge_ns,
+            "data": batch.tolist()
+        }).encode("utf-8")
+
+    arr = np.ascontiguousarray(batch, dtype=np.float32)
+    batch_id_bytes = batch_id.encode("utf-8")
+    header = struct.pack(COMPUTE_HEADER_FMT, ts_edge_ns, arr.shape[0], arr.shape[1], len(batch_id_bytes))
+    return header + batch_id_bytes + arr.tobytes()
+
 def publish_compute_batch(batch, batch_id):
     if not client.is_connected():
         print("MQTT not connected. Skip compute batch.")
         return
-    
+
     ts_edge_ns = now_ntp_ns()  # edge timestamp in nanoseconds
-    
-    payload = {
-        "batch_id": batch_id,
-        "timestamp": ts_edge_ns,
-        "data": batch.tolist()
-    }
-    js = json.dumps(payload)
+
+    payload_bytes = _encode_compute_payload(batch, batch_id, ts_edge_ns)
 
     # size of payload
-    size_mb = len(js.encode("utf-8")) / (1024 * 1024)
+    size_mb = len(payload_bytes) / (1024 * 1024)
     payload_mb = {"batch_id": batch_id,  "timestamp": ts_edge_ns, "payload_size_mb": round(size_mb, 6),  "units": "MB"}
     client.publish(MQTT_TOPIC_METRICS + "/compute", json.dumps(payload_mb), qos=0)
 
-    result = client.publish(MQTT_TOPIC_COMPUTE, js, qos=0)
-    print("Compute batch {} rc={} size: {:.2f} MB".format(batch_id, result.rc, size_mb))
+    result = client.publish(MQTT_TOPIC_COMPUTE, payload_bytes, qos=0)
+    print("Compute batch {} rc={} size: {:.2f} MB [{}]".format(batch_id, result.rc, size_mb, ENCODING))
 
 def publish_storage_batch(batch, batch_id, start_timestamp_ns):
     if not client.is_connected():

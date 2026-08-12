@@ -3,6 +3,9 @@
 # Runs ML transfer model to diagnose vibration signals from the broker and
 # publishes back the results. Also applies a threshold check to temperature
 # batches and publishes an over-temperature alarm.
+# The vibration compute topic auto-detects its wire format per message: the
+# default compact binary framing from Publisher.py, or legacy JSON (kept for
+# bandwidth comparison runs).
 ###################################################################################
 import paho.mqtt.client as mqtt
 import pandas as pd
@@ -12,6 +15,7 @@ import time
 import os
 import re
 import argparse
+import struct
 import ntplib
 
 from tensorflow import keras
@@ -66,7 +70,8 @@ if var == 0:
 else:
     #MQTT_BROKER = "d6343f2567d641e4a0e22d56e9492a04.s1.eu.hivemq.cloud"
     #MQTT_BROKER = "4e636e5bce054be2a6aa2a51659f12ed.s1.eu.hivemq.cloud"
-    MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    #MQTT_BROKER = "0dce917b917a4a08858d2bf4c1f8ede5.s1.eu.hivemq.cloud"
+    MQTT_BROKER = "76d8c83b3d0948cbb05f291d212284c5.s1.eu.hivemq.cloud"
     MQTT_PORT = 8883
     MQTT_USERNAME = "diagnosis"
     MQTT_PASSWORD = "joacoL21"
@@ -180,13 +185,32 @@ def on_temperature_message(device_id, payload):
           f"threshold={TEMP_THRESHOLD_C}C -> published to {MQTT_TOPIC_TEMP_ALARM_DEV}")
 
 
-def on_vibration_message(device_id, payload):
-    try:
-        batch = np.array(payload["data"])
-        batch_id = payload.get("batch_id", "Unknown")
-        timestamp = payload.get("timestamp", "Unknown")
+# Mirrors Publisher.py's COMPUTE_HEADER_FMT: <int64 timestamp_ns><uint32 n_rows>
+# <uint32 n_cols><uint16 batch_id_len><batch_id utf-8><float32 array, row-major>.
+COMPUTE_HEADER_FMT = "<qIIH"
+COMPUTE_HEADER_SIZE = struct.calcsize(COMPUTE_HEADER_FMT)
 
-        ts_edge_ns = int(payload["timestamp"])
+def _decode_compute_payload(raw_payload):
+    """Returns (batch_id, timestamp_ns, batch_ndarray). Auto-detects the legacy
+    JSON encoding (starts with '{', kept for bandwidth comparison runs) vs. the
+    default compact binary framing."""
+    if raw_payload[:1] == b"{":
+        payload = json.loads(raw_payload.decode("utf-8"))
+        return payload.get("batch_id", "Unknown"), int(payload["timestamp"]), np.array(payload["data"])
+
+    ts_edge_ns, n_rows, n_cols, batch_id_len = struct.unpack_from(COMPUTE_HEADER_FMT, raw_payload, 0)
+    offset = COMPUTE_HEADER_SIZE
+    batch_id = raw_payload[offset:offset + batch_id_len].decode("utf-8")
+    offset += batch_id_len
+    batch = np.frombuffer(raw_payload, dtype=np.float32, offset=offset, count=n_rows * n_cols).reshape(n_rows, n_cols)
+    return batch_id, ts_edge_ns, batch
+
+
+def on_vibration_message(device_id, raw_payload):
+    try:
+        batch_id, ts_edge_ns, batch = _decode_compute_payload(raw_payload)
+        timestamp = ts_edge_ns
+
         ts_cloud_ns = time.time_ns() # use now_ntp_ns() if you are not on cloud
 
         raw_latency_ms = (ts_cloud_ns - ts_edge_ns) / 1e6
@@ -236,7 +260,7 @@ def on_vibration_message(device_id, payload):
         }
         tmp_str = json.dumps(fft_payload_dict)
         size_mb = len(tmp_str.encode("utf-8")) / (1024 * 1024)
-        fft_payload_dict["payload_size_mb"] = size_mb
+        fft_payload_dict["payload_size_mb"] = round(size_mb, 6)
         fft_payload = json.dumps(fft_payload_dict)
 
         MQTT_TOPIC_FFT_DEV = f"{BASE}/{device_id}/Analysis/Vibration/fft"
@@ -287,12 +311,13 @@ def on_vibration_message(device_id, payload):
 def on_message(client, userdata, message):
     topic = message.topic
     try:
-        payload = json.loads(message.payload.decode("utf-8"))
-
         m_vib = TOPIC_RE_VIBRATION.match(topic)
         if m_vib:
-            on_vibration_message(m_vib.group(1), payload)
+            # Raw bytes: the compute topic may be binary or (legacy) JSON.
+            on_vibration_message(m_vib.group(1), message.payload)
             return
+
+        payload = json.loads(message.payload.decode("utf-8"))
 
         m_temp = TOPIC_RE_TEMPERATURE.match(topic)
         if m_temp:
