@@ -1,0 +1,201 @@
+Monitoring PID 49659 every 5.0s -> resource_log.csv (Ctrl+C to stop)
+cpu=  5.8%  rss=  261.2 MB
+cpu= 64.2%  rss=  312.7 MB
+cpu= 29.4%  rss=  261.3 MB
+cpu=  4.2%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  7.0%  rss=  261.3 MB
+cpu=  5.2%  rss=  261.3 MB
+cpu=  7.4%  rss=  261.3 MB
+cpu=  7.6%  rss=  261.3 MB
+cpu=  7.0%  rss=  261.3 MB
+cpu=  6.8%  rss=  261.3 MB
+cpu=  6.0%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  6.2%  rss=  261.3 MB
+cpu=  5.4%  rss=  261.3 MB
+cpu=  7.0%  rss=  261.3 MB
+cpu=  7.2%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  7.4%  rss=  261.3 MB
+cpu=  5.2%  rss=  261.3 MB
+cpu=  6.2%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  5.2%  rss=  261.3 MB
+cpu=  6.2%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  7.4%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  5.0%  rss=  261.3 MB
+cpu=  6.4%  rss=  261.3 MB
+cpu=  7.6%  rss=  261.3 MB
+cpu=  6.6%  rss=  261.3 MB
+cpu=  7.4%  rss=  261.3 MB
+cpu=  5.8%  rss=  261.3 MB
+cpu=  6.2%  rss=  261.3 MB
+cpu= 34.0%  rss=  289.2 MB
+cpu= 66.2%  rss=  333.6 MB
+cpu=  3.8%  rss=  333.6 MB
+cpu=  4.8%  rss=  333.6 MB
+cpu=  7.6%  rss=  333.6 MB
+cpu=  7.4%  rss=  333.6 MB
+cpu=  6.2%  rss=  333.6 MB
+cpu=  7.4%  rss=  333.6 MB
+cpu=  6.4%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.2%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  7.4%  rss=  333.6 MB
+cpu=  7.2%  rss=  333.6 MB
+cpu=  6.4%  rss=  333.6 MB
+cpu=  7.0%  rss=  333.6 MB
+cpu=  7.4%  rss=  333.6 MB
+cpu=  6.4%  rss=  333.6 MB
+cpu=  7.2%  rss=  333.6 MB
+cpu=  5.6%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.4%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.2%  rss=  333.6 MB
+cpu=  6.2%  rss=  333.6 MB
+cpu=  6.8%  rss=  333.6 MB
+cpu=  6.8%  rss=  333.6 MB
+cpu=  7.2%  rss=  333.6 MB
+cpu=  6.4%  rss=  333.6 MB
+cpu=  5.8%  rss=  333.6 MB
+cpu=  7.6%  rss=  333.6 MB
+cpu=  7.2%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.0%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  6.6%  rss=  333.6 MB
+cpu=  7.4%  rss=  333.6 MB
+cpu= 86.8%  rss=  333.6 MB
+cpu= 14.2%  rss=  381.2 MB
+cpu=  5.8%  rss=  381.2 MB
+cpu=  6.4%  rss=  381.2 MB
+cpu=  6.0%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  6.8%  rss=  381.2 MB
+cpu=  5.4%  rss=  381.2 MB
+cpu=  6.4%  rss=  381.2 MB
+cpu=  6.4%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu=  5.4%  rss=  381.2 MB
+cpu=  6.0%  rss=  381.2 MB
+cpu=  7.4%  rss=  381.2 MB
+cpu=  7.0%  rss=  381.2 MB
+cpu=  6.6%  rss=  381.2 MB
+cpu=  6.2%  rss=  381.2 MB
+cpu=  6.8%  rss=  381.2 MB
+cpu=  7.0%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  5.2%  rss=  381.2 MB
+cpu=  7.0%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  7.4%  rss=  381.2 MB
+cpu=  7.6%  rss=  381.2 MB
+cpu=  5.0%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu=  7.4%  rss=  381.2 MB
+cpu=  6.6%  rss=  381.2 MB
+cpu=  6.6%  rss=  381.2 MB
+cpu=  5.2%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu=  6.4%  rss=  381.2 MB
+cpu=  7.2%  rss=  381.2 MB
+cpu= 41.4%  rss=  381.2 MB
+cpu= 62.6%  rss=  333.8 MB
+cpu=  3.2%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  7.0%  rss=  333.8 MB
+cpu=  6.8%  rss=  333.8 MB
+cpu=  6.2%  rss=  333.8 MB
+cpu=  6.2%  rss=  333.8 MB
+cpu=  6.2%  rss=  333.8 MB
+cpu=  7.2%  rss=  333.8 MB
+cpu=  7.2%  rss=  333.8 MB
+cpu=  5.6%  rss=  333.8 MB
+cpu=  5.8%  rss=  333.8 MB
+cpu=  6.6%  rss=  333.8 MB
+cpu=  7.0%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  5.4%  rss=  333.8 MB
+cpu=  6.6%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  5.2%  rss=  333.8 MB
+cpu=  5.4%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  6.0%  rss=  333.8 MB
+cpu=  7.0%  rss=  333.8 MB
+cpu=  6.6%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  5.6%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  7.4%  rss=  333.8 MB
+cpu=  5.6%  rss=  333.8 MB
+cpu=  6.4%  rss=  333.8 MB
+cpu=  7.6%  rss=  333.8 MB
+cpu= 90.2%  rss=  381.2 MB
+cpu= 12.8%  rss=  381.3 MB
+cpu=  4.8%  rss=  381.3 MB
+cpu=  7.4%  rss=  381.3 MB
+cpu=  5.2%  rss=  381.3 MB
+cpu=  6.8%  rss=  381.3 MB
+cpu=  7.2%  rss=  381.3 MB
+cpu=  6.4%  rss=  381.3 MB
+cpu=  7.4%  rss=  381.3 MB
+cpu=  6.2%  rss=  381.3 MB
+Traceback (most recent call last):
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_pslinux.py", line 1593, in wrapper
+    return fun(self, *args, **kwargs)
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_common.py", line 377, in wrapper
+    raise err from None
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_common.py", line 375, in wrapper
+    return fun(self)
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_pslinux.py", line 1683, in _parse_stat_file
+    data = bcat(f"{self._procfs_path}/{self.pid}/stat")
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_common.py", line 730, in bcat
+    return cat(fname, fallback=fallback, _open=open_binary)
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_common.py", line 718, in cat
+    with _open(fname) as f:
+         ~~~~~^^^^^^^
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_common.py", line 682, in open_binary
+    return open(fname, "rb", buffering=FILE_READ_BUFFER_SIZE)
+FileNotFoundError: [Errno 2] No such file or directory: '/proc/49659/stat'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/dautom/Desktop/e2c-uns-fw/arch-components/monitor_publisher.py", line 55, in <module>
+    main()
+    ~~~~^^
+  File "/home/dautom/Desktop/e2c-uns-fw/arch-components/monitor_publisher.py", line 47, in main
+    cpu = proc.cpu_percent(interval=None)
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/__init__.py", line 1079, in cpu_percent
+    pt2 = self._proc.cpu_times()
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_pslinux.py", line 1593, in wrapper
+    return fun(self, *args, **kwargs)
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_pslinux.py", line 1829, in cpu_times
+    values = self._parse_stat_file()
+  File "/home/dautom/Desktop/e2c-uns-fw/.venv/lib/python3.13/site-packages/psutil/_pslinux.py", line 1605, in wrapper
+    raise NoSuchProcess(pid, name) from err
+psutil.NoSuchProcess: process no longer exists (pid=49659)
