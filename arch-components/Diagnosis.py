@@ -334,7 +334,7 @@ client.connect(MQTT_BROKER, MQTT_PORT, 60)
 client.subscribe(MQTT_TOPIC_RAW)
 client.subscribe(MQTT_TOPIC_TEMP)
 
-print(f"📡 Listening on '{MQTT_TOPIC_RAW}' and '{MQTT_TOPIC_TEMP}'...")
+print(f"Listening on '{MQTT_TOPIC_RAW}' and '{MQTT_TOPIC_TEMP}'...")
 client.loop_start()
 
 try:
