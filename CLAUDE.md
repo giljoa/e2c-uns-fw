@@ -46,7 +46,7 @@ Publisher.py  --MQTT-->  HiveMQ broker  --MQTT-->  Telegraf  -->  InfluxDB  --> 
                               +--MQTT-->  Diagnosis.py --MQTT--> (predictions back to broker/Telegraf)
 ```
 
-All MQTT topics follow a fixed UNS hierarchy rooted at `Enterprise/Site/Area/{DEVICE_ID}/...`:
+All MQTT topics follow a fixed UNS hierarchy rooted at `Enterprise/Site/Area/Line1/{DEVICE_ID}/...`:
 
 - `.../Edge/MotorModel/vibration` — downsampled raw signal for storage (Publisher → Telegraf → InfluxDB `vibration_data`)
 - `.../Analysis/Vibration/raw_vector` — full-rate signal for compute (Publisher → Diagnosis.py)

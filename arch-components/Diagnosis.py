@@ -84,7 +84,7 @@ else:
 # DEVICE_FILTER = args.device.strip()
 DEVICE_FILTER = 0
 
-BASE = "Enterprise/Site/Area"
+BASE = "Enterprise/Site/Area/Line1"
 if DEVICE_FILTER:
     MQTT_TOPIC_RAW = f"{BASE}/{DEVICE_FILTER}/Analysis/Vibration/raw_vector"
     MQTT_TOPIC_TEMP = f"{BASE}/{DEVICE_FILTER}/Edge/MotorModel/temperature"

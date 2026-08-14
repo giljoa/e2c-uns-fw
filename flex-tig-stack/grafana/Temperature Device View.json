@@ -118,7 +118,7 @@
             "type": "influxdb",
             "uid": "SUdjjnrHz"
           },
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_data\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Edge/MotorModel/temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_data\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Edge/MotorModel/temperature\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -216,7 +216,7 @@
             "type": "influxdb",
             "uid": "SUdjjnrHz"
           },
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"alarm\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false)\r\n  |> yield(name: \"max\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"alarm\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false)\r\n  |> yield(name: \"max\")",
           "refId": "A"
         }
       ],
@@ -299,7 +299,7 @@
             "type": "influxdb",
             "uid": "SUdjjnrHz"
           },
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"edge_to_cloud_latency_ms\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"edge_to_cloud_latency_ms\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -387,7 +387,7 @@
             "type": "influxdb",
             "uid": "SUdjjnrHz"
           },
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"max_temperature_c\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"max_temperature_c\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -462,7 +462,7 @@
             "type": "influxdb",
             "uid": "SUdjjnrHz"
           },
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"alarm\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false)\r\n  |> yield(name: \"max\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature_alarm\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Analysis/Diagnosis/temperature\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"alarm\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false)\r\n  |> yield(name: \"max\")",
           "refId": "A"
         }
       ],
@@ -523,7 +523,7 @@
             "uid": "SUdjjnrHz"
           },
           "hide": false,
-          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"payload_metrics\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"payload_size_mb\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/${DeviceTopic}/Metrics/temperature_publisher/storage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"FlexUNS_Bucket\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"payload_metrics\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"payload_size_mb\")\r\n  |> filter(fn: (r) => r[\"topic\"] == \"Enterprise/Site/Area/Line1/${DeviceTopic}/Metrics/temperature_publisher/storage\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],

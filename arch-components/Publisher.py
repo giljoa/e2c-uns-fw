@@ -74,9 +74,10 @@ else:
     MQTT_USERNAME = "publisher"
     MQTT_PASSWORD = "joacoL21"
 
-MQTT_TOPIC_STORAGE = F"Enterprise/Site/Area/{DEVICE_ID}/Edge/MotorModel/{SIGNAL}"
-MQTT_TOPIC_COMPUTE = F"Enterprise/Site/Area/{DEVICE_ID}/Analysis/Vibration/raw_vector"
-MQTT_TOPIC_METRICS = F"Enterprise/Site/Area/{DEVICE_ID}/Metrics/{SIGNAL}_publisher"
+BASE = "Enterprise/Site/Area/Line1"
+MQTT_TOPIC_STORAGE = F"{BASE}/{DEVICE_ID}/Edge/MotorModel/{SIGNAL}"
+MQTT_TOPIC_COMPUTE = F"{BASE}/{DEVICE_ID}/Analysis/Vibration/raw_vector"
+MQTT_TOPIC_METRICS = F"{BASE}/{DEVICE_ID}/Metrics/{SIGNAL}_publisher"
 
 client = mqtt.Client(client_id=F"vibration_data_publisher_{DEVICE_ID}", clean_session=True)
 if var == 1:
