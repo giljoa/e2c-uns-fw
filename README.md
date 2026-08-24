@@ -37,12 +37,35 @@ This structure enables the seamless integration of hybrid systems like **Manufac
 
 ---
 
-## Key Components  
+## Repository Contents
 
-- **Publisher (`Publisher.py`)**: Simulates edge nodes by replaying high-frequency vibration signatures from the KAIST and CWRU datasets.
-- **Diagnosis (`Diagnosis.py`)**: A subscriber-based service that performs Hilbert transforms and FFT-based feature extraction followed by CNN classification.
-- **Model (`ml/models/multi_domain_model_fold_1.h5`)**: A 1D Convolutional Neural Network (CNN) optimized for cross-domain generalizability.
-- **TIG Stack (`docker-compose.yaml`)**: Orchestrates **Telegraf, InfluxDB, and Grafana** for a robust, open-source historian and visualization layer.
+A full description of every file and directory a user needs to run or reproduce the framework:
+
+| Path | Description |
+|---|---|
+| `arch-components/Publisher.py` | Edge script. Replays a dataset's CSV files over MQTT, simulating one or more edge devices publishing high-frequency vibration (or temperature) data. |
+| `arch-components/Diagnosis.py` | Cloud script. Subscribes to raw vibration vectors, performs Hilbert-transform + FFT feature extraction, runs CNN inference, and publishes fault predictions (and temperature-threshold alarms) back to the UNS. |
+| `requirements.txt` | Python dependencies for both `Publisher.py` and `Diagnosis.py`, and for `ml/data-prep/tdms_to_csv.py`. |
+| `flex-tig-stack/docker-compose.yml` | Deploys the historian/visualization stack: Telegraf, InfluxDB, and Grafana. |
+| `flex-tig-stack/telegraf/telegraf.conf` | Maps each UNS MQTT topic to an InfluxDB measurement (one `mqtt_consumer` input block per topic). |
+| `flex-tig-stack/grafana/*.json` | Grafana dashboard exports (Overview, Device View, Temperature Device View, MotorDB) — see [Getting Started](#getting-started) for how to import them; they are not auto-provisioned. |
+| `ml/data-prep/data.ipynb` | Loads the raw KAIST/CWRU `.mat` files, resamples CWRU to match KAIST's 25.6 kHz, and builds the train/val/test manifests consumed by the training notebooks. |
+| `ml/data-prep/tdms_to_csv.py` | Converts the KAIST temperature dataset's `.tdms` files to the CSV format `Publisher.py` streams from. |
+| `ml/model-nb/CNN_Generalizability.ipynb`, `CNN_Usman2024.ipynb` | Model training and evaluation notebooks — cross-dataset transfer learning between KAIST and CWRU, producing the CNN used by `Diagnosis.py`. |
+| `ml/model-nb/module_plot.py` | Shared plotting helpers imported by the training notebooks. |
+| `ml/models_transfer_backup/kaist_to_cwru_transfer.keras` | The trained 1D CNN model used for inference (the artifact `Diagnosis.py` loads). |
+| `ml/models_transfer_backup/{kaist,cwru}_test_final/` | Evaluation reports and confusion matrices for the trained model on each dataset. |
+| `experiments/Results1`–`Results4` | Raw data from the scalability experiments reported in the paper: per-device publish logs, per-host CPU/RAM logs, TIG-stack resource usage, and the cloud diagnosis service's console log, across a 3-device and a 9-device physically-independent-hardware deployment. |
+| `experiments/monitor_publisher.py` | Cross-platform (Linux/Windows) CPU/RAM logger used to collect the per-host resource logs in `experiments/`. |
+| `CLAUDE.md` | Detailed architecture and data-flow reference (UNS topic list, data layout, notebook pipeline) — the most complete single reference beyond this README. |
+
+---
+
+## Reproducing the Paper's Results
+
+- **Scalability** (Section VI-A): the raw data is in `experiments/Results1`–`Results4`; the code that generated it is `arch-components/Publisher.py` (edge simulation, run across multiple physically independent hosts) and `arch-components/Diagnosis.py` (the single-threaded cloud inference stage whose capacity limit the results characterize).
+- **Generalizability**: `ml/model-nb/CNN_Generalizability.ipynb` and `CNN_Usman2024.ipynb` train and evaluate the cross-dataset transfer-learning model; `ml/models_transfer_backup/` holds the resulting trained model and its evaluation reports/confusion matrices.
+- **Accessibility**: `flex-tig-stack/` is the complete open-source deployment (Telegraf, InfluxDB, Grafana) referenced in the accessibility measurements — hardware/software footprint, container sizes, and deployment steps are as described in [Getting Started](#getting-started) below.
 
 ---
 
@@ -64,27 +87,43 @@ The framework has been rigorously tested to confirm the three pillars:
 
 ## Getting Started  
 
-1. Clone the repository: 
+1. Clone the repository and install dependencies:
    ```bash
    git clone https://github.com/giljoa/e2c-uns-fw.git
-   cd <your-repo-location>
-   ```
-2. Deploy TIG stack
-   ```bash
-   docker-compose -f \flex-tig-stack\docker-compose.yml up -d
-   ```
-4. Install dependencies
-   ```bash
+   cd e2c-uns-fw
    pip install -r requirements.txt
    ```
-5. Run the publisher simulation:
+2. Supply the publisher data. `data/publish-data/<dataset>/` (one CSV per class label) is required by `Publisher.py` but is **not included in this repository** — it's local-only, gitignored data. If you don't already have it, contact the authors for a copy; there is no way to regenerate it from what's checked in here (the raw vendor `.mat`/`.tdms` files it's derived from are gitignored too).
+3. Deploy the TIG stack (Telegraf, InfluxDB, Grafana):
    ```bash
-   python Publisher.py --device Motor1
+   cd flex-tig-stack
+   docker compose up -d
    ```
-6. Start the diagnosis service:
+   Then import the dashboards under `flex-tig-stack/grafana/*.json` into Grafana manually (Dashboards → Import) — they are exports, not auto-provisioned by `docker-compose.yml`.
+4. Run the publisher simulation:
    ```bash
-   python Diagnosis.py --device Motor1
+   python arch-components/Publisher.py --device Motor1 --dataset kaist
    ```
+5. Start the diagnosis service. `Diagnosis.py` loads its model from a hard-coded Google Colab Drive path by default (it was written to run inside Colab) — edit the `model = keras.models.load_model(...)` line to point at `ml/models_transfer_backup/kaist_to_cwru_transfer.keras` before running it locally:
+   ```bash
+   python arch-components/Diagnosis.py
+   ```
+
+See `CLAUDE.md` for the full UNS topic reference, data layout, and additional troubleshooting notes.
+
+---
+
+## Manuscript
+
+This repository is the companion code for:
+
+> **A Unified Namespace-Based Edge-to-Cloud Framework for Industrial Data Analytics**
+> Joaquín D. López<sup>1</sup> ([0009-0006-6132-0114](https://orcid.org/0009-0006-6132-0114)), Juliam A. Díaz<sup>1</sup> ([0009-0000-7507-7692](https://orcid.org/0009-0000-7507-7692)), Natalia Duarte<sup>2</sup> ([0009-0009-1319-1938](https://orcid.org/0009-0009-1319-1938)), Iván Hernández<sup>2</sup> ([0009-0002-5037-8477](https://orcid.org/0009-0002-5037-8477)), Carlos A. Fajardo<sup>1</sup> ([0000-0002-8995-4585](https://orcid.org/0000-0002-8995-4585)), Juan M. Rey<sup>1</sup> ([0000-0002-5465-4769](https://orcid.org/0000-0002-5465-4769))
+>
+> <sup>1</sup> Escuela de Ingenierías Eléctrica, Electrónica y de Telecomunicaciones (E3T), Universidad Industrial de Santander (UIS), Bucaramanga, Colombia
+> <sup>2</sup> [DAUTOM S.A.S.](https://www.dautom.com.co/), Bucaramanga, Colombia
+>
+> Submission ID: **10869**
 
 ## Citation
 
