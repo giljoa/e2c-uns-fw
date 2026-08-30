@@ -1,5 +1,20 @@
 # A Unified Namespace-Based Edge-to-Cloud Framework for Industrial Data Analytics
 
+**IEEE LATAM Submission ID: 10869**
+
+**Authors:**
+- Joaquín D. López¹ ([0009-0006-6132-0114](https://orcid.org/0009-0006-6132-0114))
+- Juliam A. Díaz¹ ([0009-0000-7507-7692](https://orcid.org/0009-0000-7507-7692))
+- Natalia Duarte² ([0009-0009-1319-1938](https://orcid.org/0009-0009-1319-1938))
+- Iván Hernández² ([0009-0002-5037-8477](https://orcid.org/0009-0002-5037-8477))
+- Carlos A. Fajardo¹ ([0000-0002-8995-4585](https://orcid.org/0000-0002-8995-4585))
+- Juan M. Rey¹ ([0000-0002-5465-4769](https://orcid.org/0000-0002-5465-4769))
+
+¹ Escuela de Ingenierías Eléctrica, Electrónica y de Telecomunicaciones (E3T), Universidad Industrial de Santander (UIS), Bucaramanga, Colombia
+² [DAUTOM S.A.S.](https://www.dautom.com.co/), Bucaramanga, Colombia
+
+---
+
 ## Overview  
 This repository provides the implementation of a **Unified Namespace (UNS)-based architectural formalization** designed for scalable and interoperable industrial analytics. While the framework is validated through an **induction motor (IM) fault diagnosis** case study, its primary contribution is a technology-agnostic backbone that bridges the gap between isolated edge devices and enterprise-level IT services.
 
@@ -110,20 +125,6 @@ The framework has been rigorously tested to confirm the three pillars:
    ```
 
 See `CLAUDE.md` for the full UNS topic reference, data layout, and additional troubleshooting notes.
-
----
-
-## Manuscript
-
-This repository is the companion code for:
-
-> **A Unified Namespace-Based Edge-to-Cloud Framework for Industrial Data Analytics**
-> Joaquín D. López<sup>1</sup> ([0009-0006-6132-0114](https://orcid.org/0009-0006-6132-0114)), Juliam A. Díaz<sup>1</sup> ([0009-0000-7507-7692](https://orcid.org/0009-0000-7507-7692)), Natalia Duarte<sup>2</sup> ([0009-0009-1319-1938](https://orcid.org/0009-0009-1319-1938)), Iván Hernández<sup>2</sup> ([0009-0002-5037-8477](https://orcid.org/0009-0002-5037-8477)), Carlos A. Fajardo<sup>1</sup> ([0000-0002-8995-4585](https://orcid.org/0000-0002-8995-4585)), Juan M. Rey<sup>1</sup> ([0000-0002-5465-4769](https://orcid.org/0000-0002-5465-4769))
->
-> <sup>1</sup> Escuela de Ingenierías Eléctrica, Electrónica y de Telecomunicaciones (E3T), Universidad Industrial de Santander (UIS), Bucaramanga, Colombia
-> <sup>2</sup> [DAUTOM S.A.S.](https://www.dautom.com.co/), Bucaramanga, Colombia
->
-> Submission ID: **10869**
 
 ## Citation
 
